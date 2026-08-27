@@ -1,26 +1,211 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #12030c;
+  --foreground: #f3e9ee;
+
+  /*
+   * Every hue below is sourced from the actual Ganesh Bakery logo artwork
+   * (pixel-sampled: dominant medallion maroon ≈ #7a0642, chef-hat/wheat
+   * gold ≈ #e8a94a) — not a generic "premium dark" palette. Background
+   * layers are the same maroon driven near-black, not a blue-violet plum.
+   */
+
+  /* === Dark luxury base layers (maroon-black, not violet-black) === */
+  --bg-void: #12030c;
+  --bg-primary: #1a0410;
+  --bg-secondary: #240717;
+  --bg-elevated: #300a1f;
+
+  /* === Maroon system (the logo's own brand scale) === */
+  --purple-900: #2e0119;
+  --purple-800: #4a0328;
+  --purple-700: #5c0433;
+  --purple-600: #7a0642;
+  --purple-500: #86104c;
+  --purple-glow: rgba(122, 6, 66, 0.45);
+
+  /* === Gold system (sampled from the logo's chef-hat/wheat artwork) === */
+  --gold-300: #f0cb87;
+  --gold-400: #ecb862;
+  --gold-500: #e8a94a;
+  --gold-600: #cf8f30;
+  --gold-glow: rgba(232, 169, 74, 0.4);
+
+  /* === Text === */
+  --text-primary: #f4ede1;
+  --text-secondary: #cda8ba;
+  --text-muted: #93707e;
+
+  /* === Glass surfaces === */
+  --glass-bg-1: rgba(255, 255, 255, 0.04);
+  --glass-bg-2: rgba(255, 255, 255, 0.06);
+  --glass-bg-3: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(244, 237, 225, 0.1);
+  --glass-border-strong: rgba(232, 169, 74, 0.22);
+
+  --shadow-purple: 0 20px 60px -20px rgba(92, 4, 51, 0.6);
+  --shadow-gold: 0 8px 30px -8px rgba(232, 169, 74, 0.35);
+
+  --radius-card: 1.5rem;
+  --radius-button: 999px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-manrope);
+
+  /* Maroon scale — the logo's own brand colors */
+  --color-purple-950: #12030c;
+  --color-purple-900: #1a0410;
+  --color-purple-800: #240717;
+  --color-purple-700: #2e0119;
+  --color-purple-600: #4a0328;
+  --color-purple-500: #5c0433;
+  --color-purple-400: #7a0642;
+  --color-purple-300: #86104c;
+  --color-purple-200: #9c2c5c;
+
+  /* Gold scale — sampled from the logo */
+  --color-gold-50: #fdf7ec;
+  --color-gold-100: #faecce;
+  --color-gold-300: #f0cb87;
+  --color-gold-400: #ecb862;
+  --color-gold-500: #e8a94a;
+  --color-gold-600: #cf8f30;
+  --color-gold-700: #a87025;
+
+  /* Ink / text on dark */
+  --color-ink-50: #f4ede1;
+  --color-ink-200: #cda8ba;
+  --color-ink-400: #93707e;
+  --color-ink-600: #5c4650;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--glass-border);
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Ambient background — layered radial glow, fixed to viewport
+   ============================================================ */
+.ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 700px at 12% -10%, rgba(122, 6, 66, 0.3), transparent 60%),
+    radial-gradient(900px 600px at 100% 10%, rgba(232, 169, 74, 0.08), transparent 55%),
+    radial-gradient(1000px 800px at 50% 120%, rgba(92, 4, 51, 0.28), transparent 60%),
+    linear-gradient(180deg, var(--bg-void) 0%, var(--bg-primary) 45%, var(--bg-secondary) 100%);
+}
+
+.ambient-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ============================================================
+   Glass surface system — three levels of depth
+   ============================================================ */
+.glass-subtle {
+  background: var(--glass-bg-1);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  background: linear-gradient(155deg, var(--glass-bg-2), var(--glass-bg-1));
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-purple);
+}
+
+.glass-panel {
+  background: linear-gradient(155deg, rgba(48, 10, 31, 0.85), rgba(26, 4, 16, 0.85));
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-purple);
+}
+
+.glass-premium {
+  background: linear-gradient(160deg, rgba(74, 3, 40, 0.55), rgba(18, 3, 12, 0.92));
+  border: 1px solid var(--glass-border-strong);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: var(--shadow-purple), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-button {
+  background: var(--glass-bg-2);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.glass-button:hover {
+  background: var(--glass-bg-3);
+  border-color: var(--glass-border-strong);
+}
+
+/* ============================================================
+   Glow utilities
+   ============================================================ */
+.glow-gold {
+  box-shadow: var(--shadow-gold);
+}
+.glow-purple {
+  box-shadow: var(--shadow-purple);
+}
+.glow-gold-hover {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.glow-gold-hover:hover {
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-2px);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(120deg, var(--gold-300), var(--gold-500) 55%, var(--gold-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Tracked uppercase micro-label, e.g. "EST. 1964 · THOOTHUKUDI" */
+.label-tracked {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
