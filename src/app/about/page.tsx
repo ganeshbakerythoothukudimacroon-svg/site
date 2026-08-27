@@ -60,8 +60,14 @@ export default function AboutPage() {
 
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Philosophy &amp; Quality</h2>
+          <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+            Quality, to us, is a standard carried forward rather than a claim we make — the same care in
+            choosing ingredients and baking each batch that has been part of the {siteConfig.brandName} name
+            since {siteConfig.since}.
+          </p>
           <p className="glass-subtle mt-3 rounded-2xl p-4 text-sm text-[color:var(--text-muted)]">
-            [CLIENT TO PROVIDE: notes on ingredient sourcing, baking philosophy, and quality standards]
+            [CLIENT TO PROVIDE: specific notes on ingredient sourcing and quality standards, if you&apos;d like
+            these detailed further]
           </p>
         </section>
 

@@ -44,8 +44,9 @@ export default function GiftingPage() {
           ))}
         </ul>
 
-        <p className="glass-subtle mt-8 rounded-2xl p-4 text-sm text-[color:var(--text-muted)]">
-          [CLIENT TO PROVIDE: gift box contents, sizing, and pricing]
+        <p className="glass-subtle mt-8 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
+          Contents, sizing and pricing are put together for each occasion rather than fixed to a set list —
+          message us on WhatsApp with what you have in mind and we&apos;ll help you choose.
         </p>
 
         <a
