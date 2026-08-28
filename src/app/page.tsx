@@ -12,23 +12,24 @@ import { localBusinessSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ganesh Bakery Thoothukudi | Traditional Bakery & Macaroons",
+  title: "Ganesh Bakery | Thoothukudi Macaroon & Traditional Bakery",
   description:
-    "Ganesh Bakery, Shop No. 532, Thoothukudi (Tuticorin) — traditional bakery specialities since 1964. Shop butter biscuits, ghee biscuits, tea rusk, nutbar and our signature macaroons online.",
+    "Ganesh Bakery, Thoothukudi — home of the Thoothukudi Macaroon. Shop authentic macaroons, butter biscuits, ghee biscuits, tea rusk and other traditional bakery specialities from Shop No. 532, freshly prepared since 1964.",
   path: "/",
 });
 
 export default async function HomePage() {
   const [products, categories] = await Promise.all([getFeaturedProducts(8), getCategories()]);
   const heroProduct = products.find((p) => p.slug.includes("macroon")) ?? products[0];
+  const isMacaroon = Boolean(heroProduct?.slug.includes("macroon"));
 
   return (
     <>
       <JsonLd data={localBusinessSchema(products)} />
       <Hero
         imageUrl={heroProduct?.images[0]?.url ?? null}
-        imageAlt={heroProduct?.name ?? "Ganesh Bakery"}
-        imageCaption={heroProduct ? "Signature Thoothukudi Macaroons" : undefined}
+        imageAlt={isMacaroon ? "Thoothukudi Macaroons from Ganesh Bakery" : (heroProduct?.name ?? "Ganesh Bakery")}
+        imageCaption={isMacaroon ? "Thoothukudi Macaroons" : undefined}
       />
       <TrustStrip />
       <SignatureProducts products={products} />

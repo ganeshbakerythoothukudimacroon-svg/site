@@ -65,7 +65,7 @@ export function Hero({
             style={{ boxShadow: "inset 0 -80px 80px -40px rgba(18,3,12,0.7)" }}
           />
           {imageCaption && (
-            <span className="label-tracked glass-premium absolute right-4 top-[calc(env(safe-area-inset-top)+1rem)] rounded-full px-3 py-1.5 text-[9px] text-[color:var(--gold-300)] lg:top-4">
+            <span className="label-tracked glass-premium absolute inset-x-4 top-[calc(env(safe-area-inset-top)+1rem)] w-fit max-w-[calc(100%-2rem)] rounded-full px-3 py-1.5 text-[9px] text-[color:var(--gold-300)] sm:inset-x-auto sm:right-4 sm:top-4">
               {imageCaption}
             </span>
           )}
@@ -83,30 +83,30 @@ export function Hero({
           </div>
         </div>
 
-        <div className="relative flex flex-col justify-end gap-4 [grid-area:stage] px-2 pb-6 pt-20 sm:px-4 lg:justify-center lg:gap-6 lg:px-0 lg:py-0 lg:[grid-area:content]">
+        <div className="relative flex flex-col justify-end gap-3 [grid-area:stage] px-2 pb-6 pt-16 sm:gap-4 sm:px-4 lg:justify-center lg:gap-6 lg:px-0 lg:py-0 lg:[grid-area:content]">
           <p className="label-tracked inline-flex w-fit items-center gap-2 rounded-full glass-subtle px-4 py-1.5 text-[color:var(--gold-400)]">
             Est. {siteConfig.since} · {siteConfig.locality}
           </p>
-          <h1 className="font-display text-4xl font-semibold leading-[1.08] text-[color:var(--text-primary)] sm:text-5xl lg:text-6xl text-balance">
-            Taste the Tradition,
+          <h1 className="font-display text-[clamp(1.875rem,4vw+1rem,2.25rem)] font-semibold leading-[1.15] text-[color:var(--text-primary)] sm:text-5xl lg:text-6xl lg:leading-[1.08] text-balance">
+            {siteConfig.brandName}
             <br />
-            <span className="font-display italic text-gradient-gold">Loved for Generations</span>
+            <span className="font-display italic text-gradient-gold">Home of the Thoothukudi Macaroon</span>
           </h1>
           <p className="max-w-lg text-base text-[color:var(--text-secondary)] sm:text-lg text-pretty">
-            Home to the Thoothukudi Macaroon and other handcrafted biscuits, rusk and bakery specialities,{" "}
-            {siteConfig.brandName}, {siteConfig.shopBranch} has baked the way our family always has since{" "}
-            {siteConfig.since} — freshly made, and now easier than ever to order.
+            Discover authentic Thoothukudi Macaroons and traditional bakery specialities from{" "}
+            {siteConfig.brandName}, {siteConfig.shopBranch}, {siteConfig.locality} — freshly prepared with the
+            taste and tradition we&apos;ve preserved since {siteConfig.since}.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3 sm:gap-4">
             <Link
               href="/shop"
-              className="glow-gold-hover inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-7 py-3.5 text-sm font-semibold text-[color:var(--bg-void)]"
+              className="glow-gold-hover inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-6 py-3 text-sm font-semibold text-[color:var(--bg-void)] sm:px-7 sm:py-3.5"
             >
               Shop Now
             </Link>
             <Link
               href="/about"
-              className="glass-button inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold text-[color:var(--text-primary)]"
+              className="glass-button inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-[color:var(--text-primary)] sm:px-7 sm:py-3.5"
             >
               Our Story
             </Link>

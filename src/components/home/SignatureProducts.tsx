@@ -10,7 +10,7 @@ export function SignatureProducts({ products }: { products: Product[] }) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading eyebrow="Handcrafted Daily" title="Our Signature Collection" />
+        <SectionHeading eyebrow="Handcrafted Daily" title="Traditional Bakery Specialities" />
         <Link
           href="/shop"
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]"

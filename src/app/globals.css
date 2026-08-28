@@ -192,13 +192,19 @@ body {
   color: transparent;
 }
 
-/* Tracked uppercase micro-label, e.g. "EST. 1964 · THOOTHUKUDI" */
+/* Tracked uppercase micro-label, e.g. "EST. 1964 · THOOTHUKUDI" — tighter
+   tracking below 640px so longer labels/pills don't overflow their box. */
 .label-tracked {
   font-family: var(--font-sans), sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+@media (min-width: 640px) {
+  .label-tracked {
+    letter-spacing: 0.22em;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
