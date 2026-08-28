@@ -20,12 +20,24 @@ export function TrustStrip() {
           {items.map((item) => (
             <li
               key={item.label}
-              className="glass-card glow-gold-hover flex flex-col items-center gap-3 rounded-2xl px-4 py-6 text-center"
+              className="glass-card glow-gold-hover group relative flex flex-col items-center gap-3 overflow-hidden rounded-2xl px-4 py-7 text-center"
             >
-              <span className="glass-subtle flex h-11 w-11 items-center justify-center rounded-full text-[color:var(--gold-400)]">
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ background: "radial-gradient(circle at 50% 0%, var(--gold-glow), transparent 65%)" }}
+                aria-hidden="true"
+              />
+              <span className="glass-premium glow-gold relative flex h-12 w-12 items-center justify-center rounded-full text-[color:var(--gold-400)]">
                 <item.icon className="h-5 w-5" strokeWidth={1.75} />
               </span>
-              <span className="text-xs font-medium text-[color:var(--text-secondary)] sm:text-sm">{item.label}</span>
+              <span className="relative text-xs font-medium text-[color:var(--text-primary)] sm:text-sm">
+                {item.label}
+              </span>
+              <span
+                className="relative h-px w-8 rounded-full"
+                style={{ background: "linear-gradient(90deg, transparent, var(--gold-500), transparent)" }}
+                aria-hidden="true"
+              />
             </li>
           ))}
         </ul>

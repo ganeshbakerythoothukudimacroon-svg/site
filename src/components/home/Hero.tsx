@@ -51,12 +51,18 @@ export function Hero({
               Photo coming soon
             </div>
           )}
-          {/* Legibility scrim behind the overlaid text — mobile only */}
+          {/* Legibility scrim behind the overlaid text — mobile only. Stays
+              light only in a brief window near the top (behind the caption
+              pill) so the photo still reads there; ramps to solidly dark
+              well before the heading starts so the whole text block —
+              heading through paragraph through buttons — sits on a
+              reliably readable backdrop rather than dipping light again
+              partway through. */}
           <div
             className="pointer-events-none absolute inset-0 lg:hidden"
             style={{
               background:
-                "linear-gradient(180deg, rgba(18,3,12,0.7) 0%, rgba(18,3,12,0.15) 32%, rgba(18,3,12,0.55) 64%, rgba(18,3,12,0.92) 100%)",
+                "linear-gradient(180deg, rgba(18,3,12,0.78) 0%, rgba(18,3,12,0.3) 20%, rgba(18,3,12,0.62) 38%, rgba(18,3,12,0.85) 55%, rgba(18,3,12,0.95) 100%)",
             }}
           />
           {/* Desktop-only bottom vignette so the photo integrates with the page */}
@@ -92,7 +98,7 @@ export function Hero({
             <br />
             <span className="font-display italic text-gradient-gold">Home of the Thoothukudi Macaroon</span>
           </h1>
-          <p className="max-w-lg text-base text-[color:var(--text-secondary)] sm:text-lg text-pretty">
+          <p className="max-w-lg text-base text-[color:var(--text-primary)] text-pretty sm:text-lg lg:text-[color:var(--text-secondary)]">
             Discover authentic Thoothukudi Macaroons and traditional bakery specialities from{" "}
             {siteConfig.brandName}, {siteConfig.shopBranch}, {siteConfig.locality} — freshly prepared with the
             taste and tradition we&apos;ve preserved since {siteConfig.since}.
