@@ -2,7 +2,7 @@ import sharp from "sharp";
 import fs from "node:fs";
 
 const SRC = "C:\\Users\\Gayathri Sathish\\OneDrive\\Desktop\\ganesh-bakery-logo.png";
-const CROP = { left: 68, top: 38, width: 572, height: 730 };
+const CROP = { left: 68, top: 38, width: 535, height: 730 };
 const BG_DARK = "#150a1b"; // matches --bg-primary in the new dark-luxury theme
 
 const outDir = "public";

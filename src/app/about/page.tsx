@@ -16,7 +16,7 @@ export default function AboutPage() {
   return (
     <>
       <Breadcrumbs items={[{ name: "About", path: "/about" }]} />
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
         <h1 className="font-display text-4xl font-semibold text-[color:var(--text-primary)] sm:text-5xl text-balance">
           About {siteConfig.brandName}
         </h1>
