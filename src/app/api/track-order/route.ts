@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { findOrderForTracking } from "@/lib/repositories/order-repository";
+import { findOrderForCustomer, toPublicOrder } from "@/lib/services/order-service";
 
 // TODO(production): add rate limiting here — this endpoint is a plausible
 // target for order-number enumeration even though a matching email/phone
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Enter your order number and the email or phone used to order." }, { status: 400 });
   }
 
-  const order = await findOrderForTracking(body.orderNumber, body.contact);
+  const order = await findOrderForCustomer(body.orderNumber, body.contact);
 
   if (!order) {
     return NextResponse.json(
@@ -20,5 +20,5 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({ ok: true, order });
+  return NextResponse.json({ ok: true, order: toPublicOrder(order) });
 }

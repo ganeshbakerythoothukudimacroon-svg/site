@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllProducts, getCategories } from "@/lib/repositories/product-repository";
+import { getAllProducts, getCategories } from "@/lib/services/product-service";
 import { siteConfig } from "@/lib/site-config";
 
 const STATIC_ROUTES: { path: string; priority: number; changeFrequency: "daily" | "weekly" | "monthly" }[] = [

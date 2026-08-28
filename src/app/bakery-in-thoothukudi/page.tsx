@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, Clock, ArrowRight } from "lucide-react";
-import { getCategories, getFeaturedProducts } from "@/lib/repositories/product-repository";
+import { getCategories, getFeaturedProducts } from "@/lib/services/product-service";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { localBusinessSchema } from "@/lib/seo/schema";
 import { formatAddress, siteConfig } from "@/lib/site-config";

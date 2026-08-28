@@ -60,3 +60,62 @@ export interface BulkOrderInquiry {
   occasion: string;
   message: string;
 }
+
+export interface Customer {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface OrderLineItem {
+  name: string;
+  quantity: number;
+}
+
+export interface Order {
+  id: number;
+  number: string;
+  status: string;
+  currency: "INR";
+  total: number;
+  dateCreated: string;
+  items: OrderLineItem[];
+  shippingCity: string | null;
+  /** Internal use only (order-tracking verification) — never send these two
+   *  fields back to a client response; build an explicit public subset instead. */
+  billingEmail: string;
+  billingPhone: string;
+}
+
+/** What's safe to send to the browser — no billing contact info. */
+export type PublicOrder = Omit<Order, "billingEmail" | "billingPhone">;
+
+export interface ShippingAddress {
+  name: string;
+  phone: string;
+  email?: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+}
+
+export interface CheckoutLineItem {
+  productId: number;
+  quantity: number;
+}
+
+export interface CheckoutRequest {
+  customer: ShippingAddress;
+  items: CheckoutLineItem[];
+}
+
+export interface CheckoutResult {
+  orderId: number;
+  orderNumber: string;
+  status: string;
+  currency: "INR";
+  total: number;
+  items: OrderLineItem[];
+}

@@ -1,5 +1,5 @@
 import "server-only";
-import { REAL_CATEGORY_IDS, wcFetch } from "@/lib/woocommerce/client";
+import { REAL_CATEGORY_IDS, WooCommerceApiError, wcFetch } from "@/lib/woocommerce/client";
 import { mapCategory, mapProduct } from "@/lib/woocommerce/mappers";
 import type { WCCategory, WCProduct } from "@/lib/woocommerce/raw-types";
 import type { Category, Product } from "@/lib/types";
@@ -39,6 +39,30 @@ export async function getAllProducts(): Promise<Product[]> {
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const products = await getAllProducts();
   return products.find((p) => p.slug === slug) ?? null;
+}
+
+/**
+ * Fetches a single product directly by its WooCommerce ID. Used to verify
+ * cart line items server-side (real price/stock/existence) before an order
+ * is created — never trust a product's price or name as sent by the client.
+ *
+ * Only returns null for a genuine 404 (product doesn't exist). A network
+ * failure propagates as a real error rather than being swallowed into
+ * null — checkout needs to tell "this product doesn't exist" apart from
+ * "couldn't verify it right now", and fail safe (reject the order) either
+ * way rather than silently treating a transient blip as a valid product.
+ */
+export async function getProductById(id: number): Promise<Product | null> {
+  try {
+    const [categoriesById, raw] = await Promise.all([
+      fetchCategoriesById(),
+      wcFetch<WCProduct>(`products/${id}`),
+    ]);
+    return mapProduct(raw, categoriesById);
+  } catch (err) {
+    if (err instanceof WooCommerceApiError && err.status === 404) return null;
+    throw err;
+  }
 }
 
 export async function getProductsByCategorySlug(categorySlug: string): Promise<Product[]> {

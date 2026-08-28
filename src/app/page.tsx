@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getCategories, getFeaturedProducts } from "@/lib/repositories/product-repository";
+import { getCategories, getFeaturedProducts } from "@/lib/services/product-service";
 import { Hero } from "@/components/home/Hero";
 import { TrustStrip } from "@/components/home/TrustStrip";
 import { SignatureProducts } from "@/components/home/SignatureProducts";

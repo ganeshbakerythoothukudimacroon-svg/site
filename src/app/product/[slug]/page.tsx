@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/repositories/product-repository";
+import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/services/product-service";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { productSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site-config";

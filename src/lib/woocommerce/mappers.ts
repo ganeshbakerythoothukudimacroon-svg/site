@@ -1,5 +1,7 @@
-import type { Category, Product, ProductImage } from "@/lib/types";
+import type { Category, Customer, Order, Product, ProductImage } from "@/lib/types";
 import type { WCCategory, WCImage, WCProduct } from "./raw-types";
+import type { WCOrder } from "./order-raw-types";
+import type { WCCustomer } from "./customer-raw-types";
 
 function toNumberOrNull(value: string): number | null {
   if (value === "" || value === undefined || value === null) return null;
@@ -63,5 +65,29 @@ export function mapProduct(raw: WCProduct, categoriesById: Map<number, Category>
     featured: raw.featured,
     averageRating: raw.rating_count > 0 ? toNumberOrNull(raw.average_rating) : null,
     reviewCount: raw.rating_count,
+  };
+}
+
+export function mapOrder(raw: WCOrder): Order {
+  return {
+    id: raw.id,
+    number: raw.number,
+    status: raw.status,
+    currency: "INR",
+    total: toNumberOrNull(raw.total) ?? 0,
+    dateCreated: raw.date_created,
+    items: raw.line_items.map((li) => ({ name: li.name, quantity: li.quantity })),
+    shippingCity: raw.shipping?.city || null,
+    billingEmail: raw.billing?.email || "",
+    billingPhone: raw.billing?.phone || "",
+  };
+}
+
+export function mapCustomer(raw: WCCustomer): Customer {
+  return {
+    id: raw.id,
+    email: raw.email,
+    firstName: raw.first_name,
+    lastName: raw.last_name,
   };
 }

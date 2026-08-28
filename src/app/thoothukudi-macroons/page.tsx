@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getProductBySlug } from "@/lib/repositories/product-repository";
+import { getProductBySlug } from "@/lib/services/product-service";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { faqSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site-config";

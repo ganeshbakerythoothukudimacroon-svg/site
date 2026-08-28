@@ -1,17 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle, ShoppingBag } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartContext";
 import { siteConfig } from "@/lib/site-config";
+import type { CheckoutRequest } from "@/lib/types";
 
 const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
 
-// Real online payment (WooCommerce Store API + Razorpay) isn't wired up
-// yet — until then, checkout hands the order off to WhatsApp with everything
-// prefilled, rather than pretending to process a payment that doesn't exist.
 export function CheckoutForm() {
-  const { items, subtotal } = useCart();
+  const { items, subtotal, clearCart } = useCart();
+  const router = useRouter();
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
 
   if (items.length === 0) {
     return (
@@ -20,33 +23,58 @@ export function CheckoutForm() {
           <ShoppingBag className="h-6 w-6" />
         </span>
         <p className="text-[color:var(--text-muted)]">Your cart is empty.</p>
-        <Link
-          href="/shop"
-          className="glow-gold-hover inline-flex rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-2.5 text-sm font-semibold text-[color:var(--bg-void)]"
-        >
+        <Link href="/shop" className="glow-gold-hover inline-flex rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-2.5 text-sm font-semibold text-[color:var(--bg-void)]">
           Browse Products
         </Link>
       </div>
     );
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setStatus("loading");
+    setError(null);
     const data = Object.fromEntries(new FormData(e.currentTarget).entries()) as Record<string, string>;
 
-    const lines = items.map((i) => `• ${i.quantity} × ${i.name} — ${inr.format(i.lineTotal)}`).join("\n");
-    const message = [
-      `New order request — ${siteConfig.brandName}, ${siteConfig.shopBranch}`,
-      "",
-      lines,
-      `Subtotal: ${inr.format(subtotal)}`,
-      "",
-      `Name: ${data.name}`,
-      `Phone: ${data.phone}`,
-      `Address: ${data.address}, ${data.city}, ${data.state} - ${data.pincode}`,
-    ].join("\n");
+    const payload: CheckoutRequest = {
+      customer: {
+        name: data.name,
+        phone: data.phone,
+        email: data.email || undefined,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        pincode: data.pincode,
+      },
+      items: items.map((item) => ({ productId: item.productId, quantity: item.quantity })),
+    };
 
-    window.open(`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+
+      if (!res.ok || !json.ok) {
+        setError(json.error || "Something went wrong — please try again.");
+        setStatus("idle");
+        return;
+      }
+
+      try {
+        sessionStorage.setItem(`order-confirmation-${json.order.orderId}`, JSON.stringify(json.order));
+      } catch {
+        // Non-fatal — confirmation page just shows the generic fallback.
+      }
+
+      clearCart();
+      router.push(`/order-confirmation/${json.order.orderId}`);
+    } catch {
+      setError("Something went wrong — please check your connection and try again.");
+      setStatus("idle");
+    }
   }
 
   return (
@@ -63,15 +91,17 @@ export function CheckoutForm() {
           <Field id="state" label="State" required defaultValue={siteConfig.address.state} />
           <Field id="pincode" label="Pincode" required />
         </div>
+        {error && <p className="text-sm text-red-400">{error}</p>}
         <button
           type="submit"
-          className="glow-gold-hover flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)]"
+          disabled={status === "loading"}
+          className="glow-gold-hover flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)] disabled:opacity-60"
         >
-          <MessageCircle className="h-4 w-4" /> Send Order via WhatsApp
+          {status === "loading" ? "Placing Order…" : "Place Order"}
         </button>
         <p className="text-xs text-[color:var(--text-muted)]">
-          Online payment is being finalized — for now, submitting sends your order details to us on WhatsApp so we
-          can confirm and arrange payment with you directly.
+          Online payment is being finalized — your order is recorded and we&apos;ll confirm payment and delivery
+          with you directly.
         </p>
       </form>
 

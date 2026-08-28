@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { Package } from "lucide-react";
-import type { TrackedOrder } from "@/lib/repositories/order-repository";
+import type { PublicOrder } from "@/lib/types";
 
 const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
 
 export function OrderTracker() {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [order, setOrder] = useState<TrackedOrder | null>(null);
+  const [order, setOrder] = useState<PublicOrder | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -99,7 +99,7 @@ export function OrderTracker() {
               </li>
             ))}
           </ul>
-          <p className="mt-4 font-semibold text-gradient-gold">Total: {inr.format(Number(order.total))}</p>
+          <p className="mt-4 font-semibold text-gradient-gold">Total: {inr.format(order.total)}</p>
         </div>
       )}
     </div>

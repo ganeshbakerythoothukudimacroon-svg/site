@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllProducts, getCategories } from "@/lib/repositories/product-repository";
+import { getAllProducts, getCategories } from "@/lib/services/product-service";
 import { sortProducts } from "@/lib/sort-products";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";

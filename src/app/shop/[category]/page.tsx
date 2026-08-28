@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getCategories, getCategoryBySlug, getProductsByCategorySlug } from "@/lib/repositories/product-repository";
+import { getCategories, getCategoryBySlug, getProductsByCategorySlug } from "@/lib/services/product-service";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site-config";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
