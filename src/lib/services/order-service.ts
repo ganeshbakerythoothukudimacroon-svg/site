@@ -45,3 +45,14 @@ export async function findOrderForCustomer(orderNumber: string, contact: string)
 export function toPublicOrder({ billingEmail, billingPhone, ...publicOrder }: Order): PublicOrder {
   return publicOrder;
 }
+
+/**
+ * Orders for an authenticated customer's own account page. Scoped by the
+ * caller's own verified session.customerId — never by a client-supplied ID
+ * — so this never needs the email/phone match-check that anonymous order
+ * tracking does.
+ */
+export async function getOrdersForCustomer(customerId: number): Promise<PublicOrder[]> {
+  const orders = await orderRepository.getOrdersByCustomerId(customerId);
+  return orders.map(toPublicOrder);
+}

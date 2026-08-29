@@ -15,6 +15,7 @@ import {
   Users,
   Mail,
   HelpCircle,
+  UserCircle2,
   X,
   ChevronRight,
   Phone,
@@ -51,6 +52,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: "Orders & Gifting",
     items: [
+      { href: "/account", label: "My Account", icon: UserCircle2 },
       { href: "/track-order", label: "Track Order", icon: Truck },
       { href: "/gifting", label: "Gift Hampers", icon: Gift },
       { href: "/bulk-orders", label: "Bulk Orders", icon: Users },

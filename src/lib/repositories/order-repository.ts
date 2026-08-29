@@ -16,6 +16,15 @@ export async function getOrderById(id: number): Promise<Order | null> {
   }
 }
 
+export async function getOrdersByCustomerId(customerId: number): Promise<Order[]> {
+  const raw = await wcFetch<WCOrder[]>(
+    "orders",
+    { customer: customerId, orderby: "date", order: "desc", per_page: 50 },
+    { next: { revalidate: 0 } }
+  );
+  return raw.map(mapOrder);
+}
+
 export async function createOrder(payload: WCOrderCreatePayload): Promise<Order> {
   const raw = await wcFetch<WCOrder>(
     "orders",

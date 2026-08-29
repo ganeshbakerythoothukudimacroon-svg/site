@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, Search, ShoppingBag } from "lucide-react";
+import { Menu, Search, ShoppingBag, UserCircle2 } from "lucide-react";
 import { useCart } from "@/components/cart/CartContext";
 import { siteConfig } from "@/lib/site-config";
 import { MobileDrawer } from "./MobileDrawer";
@@ -87,6 +87,14 @@ export function Header() {
               className="label-tracked hidden h-10 items-center rounded-full px-3 text-[color:var(--text-secondary)] hover:text-[color:var(--gold-400)] md:flex"
             >
               Track Order
+            </Link>
+
+            <Link
+              href="/account"
+              aria-label="Your account"
+              className="glass-button hidden h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)] md:flex"
+            >
+              <UserCircle2 className="h-[18px] w-[18px]" />
             </Link>
 
             <button

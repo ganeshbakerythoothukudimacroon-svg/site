@@ -61,11 +61,28 @@ export interface BulkOrderInquiry {
   message: string;
 }
 
+export interface CustomerAddress {
+  name: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+}
+
 export interface Customer {
   id: number;
   email: string;
   firstName: string;
   lastName: string;
+  address: CustomerAddress | null;
+}
+
+/** The signed-in customer's session — issued after a verified Google sign-in. */
+export interface AuthSession {
+  customerId: number;
+  email: string;
+  name: string;
 }
 
 export interface OrderLineItem {

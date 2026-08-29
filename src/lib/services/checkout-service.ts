@@ -2,22 +2,18 @@ import "server-only";
 import * as productService from "@/lib/services/product-service";
 import * as orderRepository from "@/lib/repositories/order-repository";
 import { findOrCreateCustomer } from "@/lib/services/customer-service";
+import { validateAddress } from "@/lib/validation/address";
 import type { CheckoutRequest, CheckoutResult, ShippingAddress } from "@/lib/types";
 
 /** Thrown for a problem with the request itself — safe to show to the customer. */
 export class CheckoutValidationError extends Error {}
 
-const PINCODE_RE = /^\d{6}$/;
-const PHONE_DIGITS_RE = /\d{10,}/;
-
 function validateCustomer(customer: ShippingAddress | undefined): asserts customer is ShippingAddress {
-  if (!customer) throw new CheckoutValidationError("Missing customer details.");
-  if (!customer.name?.trim()) throw new CheckoutValidationError("Enter your full name.");
-  if (!PHONE_DIGITS_RE.test(customer.phone || "")) throw new CheckoutValidationError("Enter a valid phone number.");
-  if (!customer.address?.trim()) throw new CheckoutValidationError("Enter your delivery address.");
-  if (!customer.city?.trim()) throw new CheckoutValidationError("Enter your city.");
-  if (!customer.state?.trim()) throw new CheckoutValidationError("Enter your state.");
-  if (!PINCODE_RE.test(customer.pincode || "")) throw new CheckoutValidationError("Enter a valid 6-digit pincode.");
+  try {
+    validateAddress(customer);
+  } catch (err) {
+    throw new CheckoutValidationError(err instanceof Error ? err.message : "Invalid address details.");
+  }
   if (customer.email && !/^\S+@\S+\.\S+$/.test(customer.email)) {
     throw new CheckoutValidationError("Enter a valid email address, or leave it blank.");
   }

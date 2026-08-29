@@ -84,10 +84,23 @@ export function mapOrder(raw: WCOrder): Order {
 }
 
 export function mapCustomer(raw: WCCustomer): Customer {
+  const b = raw.billing;
+  const hasAddress = Boolean(b?.address_1 && b?.city && b?.state && b?.postcode);
+
   return {
     id: raw.id,
     email: raw.email,
     firstName: raw.first_name,
     lastName: raw.last_name,
+    address: hasAddress
+      ? {
+          name: [b?.first_name, b?.last_name].filter(Boolean).join(" ") || `${raw.first_name} ${raw.last_name}`.trim(),
+          phone: b?.phone || "",
+          address: b?.address_1 || "",
+          city: b?.city || "",
+          state: b?.state || "",
+          pincode: b?.postcode || "",
+        }
+      : null,
   };
 }

@@ -2,19 +2,36 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartContext";
 import { siteConfig } from "@/lib/site-config";
-import type { CheckoutRequest } from "@/lib/types";
+import type { CheckoutRequest, CustomerAddress } from "@/lib/types";
 
 const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
+
+interface AccountPrefill {
+  email: string;
+  address: CustomerAddress | null;
+}
 
 export function CheckoutForm() {
   const { items, subtotal, clearCart } = useCart();
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [account, setAccount] = useState<AccountPrefill | null>(null);
+
+  useEffect(() => {
+    // Not signed in is a completely normal outcome here (checkout works
+    // fine as a guest) — only prefill the form when it succeeds.
+    fetch("/api/account")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (json?.ok) setAccount({ email: json.user.email, address: json.user.address });
+      })
+      .catch(() => {});
+  }, []);
 
   if (items.length === 0) {
     return (
@@ -77,19 +94,34 @@ export function CheckoutForm() {
     }
   }
 
+  const prefill = account?.address;
+
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <form onSubmit={handleSubmit} className="glass-card space-y-4 rounded-[var(--radius-card)] p-6">
+      {/* Remounts once with prefilled values when a saved address loads —
+          simpler than converting every field to controlled state, and the
+          fetch resolves fast enough that a guest typing in that instant is
+          the rare case, not the common one. */}
+      <form
+        key={account ? "account" : "guest"}
+        onSubmit={handleSubmit}
+        className="glass-card space-y-4 rounded-[var(--radius-card)] p-6"
+      >
+        {account && (
+          <p className="rounded-lg bg-[color:var(--glass-bg-2)] px-3 py-2 text-xs text-[color:var(--gold-300)]">
+            Using your saved address — edit any field below if this order ships somewhere else.
+          </p>
+        )}
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field id="name" label="Full Name" required />
-          <Field id="phone" label="Phone" type="tel" required />
+          <Field id="name" label="Full Name" required defaultValue={prefill?.name} />
+          <Field id="phone" label="Phone" type="tel" required defaultValue={prefill?.phone} />
         </div>
-        <Field id="email" label="Email (optional)" type="email" />
-        <Field id="address" label="Address" required />
+        <Field id="email" label="Email (optional)" type="email" defaultValue={account?.email} />
+        <Field id="address" label="Address" required defaultValue={prefill?.address} />
         <div className="grid gap-4 sm:grid-cols-3">
-          <Field id="city" label="City" required />
-          <Field id="state" label="State" required defaultValue={siteConfig.address.state} />
-          <Field id="pincode" label="Pincode" required />
+          <Field id="city" label="City" required defaultValue={prefill?.city} />
+          <Field id="state" label="State" required defaultValue={prefill?.state || siteConfig.address.state} />
+          <Field id="pincode" label="Pincode" required defaultValue={prefill?.pincode} />
         </div>
         {error && <p className="text-sm text-red-400">{error}</p>}
         <button
