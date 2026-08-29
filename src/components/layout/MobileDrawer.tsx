@@ -138,15 +138,18 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
       >
         <div className="pt-[max(1.5rem,env(safe-area-inset-top))]" />
 
-        <div className="flex items-start justify-between gap-3 px-6 pb-6">
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="glow-gold relative h-14 w-14 shrink-0 rounded-full">
+        <div className="flex items-start justify-between gap-2 px-6 pb-6">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <div className="glow-gold relative h-12 w-12 shrink-0 rounded-full">
               <Image src="/brand/emblem.png" alt="" fill className="object-contain" />
             </div>
             <div className="min-w-0">
               <p className="font-display text-xl italic text-[color:var(--gold-400)]">Ganesh Bakery</p>
-              <p className="label-tracked mt-0.5 truncate text-[10px] text-[color:var(--text-muted)]">
-                Est. {siteConfig.since}
+              <p
+                className="label-tracked mt-0.5 truncate text-[10px] text-[color:var(--text-muted)]"
+                style={{ letterSpacing: "0.04em" }}
+              >
+                Est. {siteConfig.since} · {siteConfig.locality}
               </p>
             </div>
           </div>
