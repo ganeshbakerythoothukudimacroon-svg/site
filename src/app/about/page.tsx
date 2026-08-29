@@ -38,12 +38,12 @@ export default function AboutPage() {
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Heritage</h2>
           <div className="mt-5 flex justify-center">
             <div className="glass-premium glow-gold relative flex h-40 w-40 items-center justify-center rounded-full">
-              <div className="relative h-[72%] w-[72%] overflow-hidden rounded-full">
+              <div className="relative h-[72%] w-[72%]">
                 <Image
                   src="/brand/emblem.png"
                   alt={`${siteConfig.brandName} — Since ${siteConfig.since}`}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </div>

@@ -53,8 +53,8 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-2 sm:col-span-3 lg:col-span-2">
             <div className="flex items-center gap-3">
-              <span className="glow-gold relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
-                <Image src="/brand/emblem.png" alt="Ganesh Bakery" fill className="object-cover" />
+              <span className="glow-gold relative h-12 w-12 shrink-0 rounded-full">
+                <Image src="/brand/emblem.png" alt="Ganesh Bakery" fill className="object-contain" />
               </span>
               <div>
                 <p className="font-display text-xl italic text-[color:var(--gold-400)]">{siteConfig.brandName}</p>

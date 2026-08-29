@@ -207,6 +207,16 @@ body {
   }
 }
 
+/* Keeps scroll working but hides the track — used on overlay/drawer panels
+   where a visible scrollbar clashes with the glass surface. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

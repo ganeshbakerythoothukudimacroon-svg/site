@@ -1,10 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
+
+interface AccountPrefill {
+  name: string;
+  email: string;
+}
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [account, setAccount] = useState<AccountPrefill | null>(null);
+
+  useEffect(() => {
+    // Not signed in is a normal outcome (the form works fine as a guest) —
+    // only prefill when a session actually resolves.
+    fetch("/api/account")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (json?.ok) setAccount({ name: json.user.name, email: json.user.email });
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,7 +53,15 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="glass-card space-y-4 rounded-[var(--radius-card)] p-6">
+    // Remounts once with prefilled values when a signed-in session loads —
+    // simpler than converting fields to controlled state, and the fetch
+    // resolves fast enough that a guest typing in that instant is the rare
+    // case, not the common one (same pattern as CheckoutForm).
+    <form
+      key={account ? "account" : "guest"}
+      onSubmit={handleSubmit}
+      className="glass-card space-y-4 rounded-[var(--radius-card)] p-6"
+    >
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-[color:var(--text-primary)]">
           Name
@@ -46,6 +71,7 @@ export function ContactForm() {
           name="name"
           type="text"
           required
+          defaultValue={account?.name}
           className="glass-subtle mt-1.5 w-full rounded-lg px-3.5 py-2.5 text-sm text-[color:var(--text-primary)] placeholder:text-[color:var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[color:var(--gold-500)]"
         />
       </div>
@@ -58,6 +84,7 @@ export function ContactForm() {
           name="contact"
           type="text"
           required
+          defaultValue={account?.email}
           className="glass-subtle mt-1.5 w-full rounded-lg px-3.5 py-2.5 text-sm text-[color:var(--text-primary)] placeholder:text-[color:var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[color:var(--gold-500)]"
         />
       </div>

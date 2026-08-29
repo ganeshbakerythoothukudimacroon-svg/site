@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, Search, ShoppingBag, UserCircle2 } from "lucide-react";
 import { useCart } from "@/components/cart/CartContext";
 import { siteConfig } from "@/lib/site-config";
@@ -24,6 +24,40 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const { itemsCount, openCart } = useCart();
   const pathname = usePathname();
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    // Edge-swipe to open the drawer: a touch starting near the left screen
+    // edge that drags rightward opens it, matching how the panel itself
+    // slides in from the left (translateX(-100%) -> 0 in MobileDrawer).
+    function onTouchStart(e: TouchEvent) {
+      const t = e.touches[0];
+      swipeStart.current = t.clientX <= 24 && !menuOpen && !searchOpen ? { x: t.clientX, y: t.clientY } : null;
+    }
+    function onTouchMove(e: TouchEvent) {
+      const start = swipeStart.current;
+      if (!start) return;
+      const t = e.touches[0];
+      const dx = t.clientX - start.x;
+      const dy = t.clientY - start.y;
+      if (dx > 60 && Math.abs(dy) < 40) {
+        setMenuOpen(true);
+        swipeStart.current = null;
+      }
+    }
+    function onTouchEnd() {
+      swipeStart.current = null;
+    }
+
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd);
+    return () => {
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [menuOpen, searchOpen]);
 
   return (
     <>

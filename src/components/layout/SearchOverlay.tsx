@@ -83,7 +83,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
         style={{ opacity: entered ? 1 : 0 }}
       />
       <div
-        className="glass-premium absolute left-1/2 top-[8vh] w-[92%] max-w-xl -translate-x-1/2 rounded-3xl p-5 transition-all duration-250 ease-out motion-reduce:transition-none sm:top-[12vh] sm:p-6"
+        className="glass-premium no-scrollbar absolute left-1/2 top-[6vh] max-h-[88dvh] w-[92%] max-w-xl overflow-y-auto overscroll-contain rounded-3xl p-5 transition-all duration-250 ease-out motion-reduce:transition-none sm:top-[12vh] sm:max-h-[76dvh] sm:p-6"
         style={{
           opacity: entered ? 1 : 0,
           transform: entered ? "translate(-50%, 0) scale(1)" : "translate(-50%, -8px) scale(0.98)",

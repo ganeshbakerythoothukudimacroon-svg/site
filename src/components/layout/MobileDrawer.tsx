@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Home,
   ShoppingBag,
@@ -98,6 +98,22 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  function handleTouchStart(e: React.TouchEvent) {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+  }
+  function handleTouchEnd(e: React.TouchEvent) {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (dx < -60 && Math.abs(dy) < 60) onClose();
+  }
+
   if (!mounted) return null;
 
   let itemIndex = 0;
@@ -115,20 +131,22 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className="glass-premium absolute left-0 top-0 flex h-full w-[86%] max-w-sm flex-col overflow-y-auto rounded-r-[1.75rem] transition-transform duration-300 ease-out motion-reduce:transition-none"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        className="glass-premium no-scrollbar absolute left-0 top-0 flex h-full w-[86%] max-w-sm flex-col overflow-y-auto rounded-r-[1.75rem] transition-transform duration-300 ease-out motion-reduce:transition-none"
         style={{ transform: entered ? "translateX(0)" : "translateX(-100%)" }}
       >
         <div className="pt-[max(1.5rem,env(safe-area-inset-top))]" />
 
         <div className="flex items-start justify-between gap-3 px-6 pb-6">
-          <div className="flex items-center gap-3">
-            <div className="glow-gold relative h-14 w-14 shrink-0 overflow-hidden rounded-full">
-              <Image src="/brand/emblem.png" alt="" fill className="object-cover" />
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="glow-gold relative h-14 w-14 shrink-0 rounded-full">
+              <Image src="/brand/emblem.png" alt="" fill className="object-contain" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="font-display text-xl italic text-[color:var(--gold-400)]">Ganesh Bakery</p>
-              <p className="label-tracked mt-0.5 text-[color:var(--text-muted)]">
-                Est. {siteConfig.since} · {siteConfig.locality}
+              <p className="label-tracked mt-0.5 truncate text-[10px] text-[color:var(--text-muted)]">
+                Est. {siteConfig.since}
               </p>
             </div>
           </div>

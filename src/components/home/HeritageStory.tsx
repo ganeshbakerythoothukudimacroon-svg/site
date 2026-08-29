@@ -15,8 +15,8 @@ export function HeritageStory() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="order-2 flex justify-center lg:order-1">
             <div className="glass-premium glow-gold relative flex h-64 w-64 items-center justify-center rounded-full sm:h-80 sm:w-80">
-              <div className="relative h-[70%] w-[70%] overflow-hidden rounded-full">
-                <Image src="/brand/emblem.png" alt={`${siteConfig.brandName} — Since ${siteConfig.since}`} fill className="object-cover" />
+              <div className="relative h-[70%] w-[70%]">
+                <Image src="/brand/emblem.png" alt={`${siteConfig.brandName} — Since ${siteConfig.since}`} fill className="object-contain" />
               </div>
             </div>
           </div>
