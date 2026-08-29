@@ -163,6 +163,7 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
                       <Link
                         href={item.href}
                         onClick={onClose}
+                        prefetch={item.href === "/account" ? false : undefined}
                         className={`group relative flex items-center gap-3 rounded-2xl px-3 py-3 transition-colors ${
                           active
                             ? "bg-gradient-to-r from-[color:var(--purple-500)]/40 to-[color:var(--gold-500)]/10 text-[color:var(--gold-300)]"

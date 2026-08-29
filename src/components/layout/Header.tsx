@@ -92,6 +92,7 @@ export function Header() {
             <Link
               href="/account"
               aria-label="Your account"
+              prefetch={false}
               className="glass-button hidden h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)] md:flex"
             >
               <UserCircle2 className="h-[18px] w-[18px]" />

@@ -14,6 +14,14 @@ export const metadata: Metadata = pageMetadata({
   noindex: true,
 });
 
+// Always render fresh — this page shows live order/address data right
+// after checkout or a sign-in, and every layer below already fetches with
+// revalidate: 0. Without this, Next's client-side Router Cache can still
+// serve an already-stale prefetched copy of the page itself on soft
+// navigation (a separate cache from the fetch() cache).
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AccountPage() {
   const session = await getSession();
 
