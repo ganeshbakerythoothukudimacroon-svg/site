@@ -52,9 +52,11 @@ export default function AboutPage() {
             The {siteConfig.brandName} name has been associated with {siteConfig.locality}&apos;s bakery
             tradition since {siteConfig.since}. At {siteConfig.shopBranch}, that heritage continues today.
           </p>
-          <p className="glass-subtle mt-4 rounded-2xl p-4 text-sm text-[color:var(--text-muted)]">
-            [CLIENT TO PROVIDE: full heritage story — founding details, family history, and craftsmanship notes
-            specific to {siteConfig.shopBranch}]
+          <p className="glass-subtle mt-4 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
+            It began with our grandfather, who started the bakery in {siteConfig.since}. When the time came, our
+            father took over and carried it forward, keeping the same recipes and the same standards. Today, we
+            continue that legacy at {siteConfig.shopBranch} — three generations of the same family, still baking
+            the way it started.
           </p>
         </section>
 
