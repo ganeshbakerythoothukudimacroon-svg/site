@@ -52,11 +52,43 @@ export default function AboutPage() {
             The {siteConfig.brandName} name has been associated with {siteConfig.locality}&apos;s bakery
             tradition since {siteConfig.since}. At {siteConfig.shopBranch}, that heritage continues today.
           </p>
-          <p className="glass-subtle mt-4 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
-            It began with our grandfather, who started the bakery in {siteConfig.since}. When the time came, our
-            father took over and carried it forward, keeping the same recipes and the same standards. Today, we
-            continue that legacy at {siteConfig.shopBranch} — three generations of the same family, still baking
-            the way it started.
+
+          <div className="mt-6 flex flex-wrap justify-center gap-6">
+            <figure className="w-36 text-center">
+              <div className="glass-subtle glow-gold relative mx-auto aspect-[3/4] w-full overflow-hidden rounded-2xl">
+                <Image
+                  src="/brand/founder-dharmalingam-nadar.jpg"
+                  alt={`Sri K. Dharmalingam Nadar — founder of ${siteConfig.brandName}, ${siteConfig.since}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-2">
+                <p className="text-sm font-medium text-[color:var(--text-primary)]">Sri K. Dharmalingam Nadar</p>
+                <p className="label-tracked mt-0.5 text-[10px] text-[color:var(--text-muted)]">Founder, {siteConfig.since}</p>
+              </figcaption>
+            </figure>
+            <figure className="w-36 text-center">
+              <div className="glass-subtle glow-gold relative mx-auto aspect-[3/4] w-full overflow-hidden rounded-2xl">
+                <Image
+                  src="/brand/father-katteri-raj.jpg"
+                  alt={`T. Katteri Raj — carried the ${siteConfig.brandName} tradition forward`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-2">
+                <p className="text-sm font-medium text-[color:var(--text-primary)]">T. Katteri Raj</p>
+                <p className="label-tracked mt-0.5 text-[10px] text-[color:var(--text-muted)]">Carried the tradition forward</p>
+              </figcaption>
+            </figure>
+          </div>
+
+          <p className="glass-subtle mt-6 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
+            It began with our grandfather, Sri K. Dharmalingam Nadar, who founded the bakery in {siteConfig.since}.
+            Our father, T. Katteri Raj, took over after him and carried it forward, keeping the same recipes and
+            the same standards. Today, we continue that legacy at {siteConfig.shopBranch} — three generations of
+            the same family, still baking the way it started.
           </p>
         </section>
 

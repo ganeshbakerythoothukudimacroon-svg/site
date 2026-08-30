@@ -31,9 +31,10 @@ export function HeritageStory() {
               handed down, ingredients chosen with care, and every batch baked with the intention of being shared.
             </p>
             <p className="glass-subtle mt-5 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
-              It began with our grandfather, who started the bakery in {siteConfig.since}. Our father carried it
-              forward after him, and today we continue that same family legacy at {siteConfig.shopBranch} — three
-              generations now, still baking the way it started.
+              It began with our grandfather, Sri K. Dharmalingam Nadar, who founded the bakery in{" "}
+              {siteConfig.since}. Our father, T. Katteri Raj, carried it forward after him, and today we continue
+              that same family legacy at {siteConfig.shopBranch} — three generations now, still baking the way it
+              started.
             </p>
             <Link
               href="/about"

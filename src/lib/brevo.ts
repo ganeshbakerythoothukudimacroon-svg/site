@@ -46,10 +46,14 @@ export async function notifyContactEnquiry({
   name,
   contact,
   message,
+  adminEmail,
 }: {
   name: string;
   contact: string;
   message: string;
+  /** Where the notification goes — the caller resolves this from
+   *  WordPress's admin email, not a hardcoded address. */
+  adminEmail: string;
 }): Promise<void> {
   if (!BREVO_API_KEY) {
     console.warn("[brevo] BREVO_API_KEY not set — skipping admin notification for contact enquiry.");
@@ -60,7 +64,7 @@ export async function notifyContactEnquiry({
 
   const emailTask = brevoFetch("smtp/email", {
     sender: { name: `${siteConfig.brandName} Website`, email: SENDER_EMAIL },
-    to: [{ email: siteConfig.email, name: siteConfig.brandName }],
+    to: [{ email: adminEmail, name: siteConfig.brandName }],
     ...(emailIsValid ? { replyTo: { email: contact, name } } : {}),
     subject: `New website enquiry from ${name}`,
     htmlContent: `

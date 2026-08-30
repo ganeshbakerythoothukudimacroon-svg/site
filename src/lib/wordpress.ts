@@ -5,6 +5,39 @@ const APP_USERNAME = process.env.WORDPRESS_APP_USERNAME;
 const APP_PASSWORD = process.env.WORDPRESS_APP_PASSWORD;
 
 /**
+ * Reads the site's Administration Email Address (WordPress → Settings →
+ * General) — the single source of truth for where enquiry notifications
+ * go, rather than a hardcoded address in this codebase. Cached briefly
+ * since it almost never changes; returns null (not a fallback address) on
+ * any failure so the caller can decide how to degrade.
+ */
+export async function getAdminEmail(): Promise<string | null> {
+  if (!WOOCOMMERCE_URL || !APP_USERNAME || !APP_PASSWORD) {
+    console.warn("[wordpress] WORDPRESS_APP_USERNAME/PASSWORD not set — can't read admin email.");
+    return null;
+  }
+
+  try {
+    const auth = "Basic " + Buffer.from(`${APP_USERNAME}:${APP_PASSWORD}`).toString("base64");
+    const res = await fetch(new URL("/wp-json/wp/v2/settings", WOOCOMMERCE_URL), {
+      headers: { Authorization: auth },
+      next: { revalidate: 300 },
+    });
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`WordPress settings fetch failed (${res.status}): ${text}`);
+    }
+
+    const data = (await res.json()) as { email?: string };
+    return typeof data.email === "string" && data.email ? data.email : null;
+  } catch (err) {
+    console.error("[wordpress] failed to read admin email:", err);
+    return null;
+  }
+}
+
+/**
  * Saves a Contact Us / Bulk Order submission as a private "Enquiry" record
  * in wp-admin, via a dedicated `gb/v1/enquiry` REST route registered by
  * wordpress-plugin/ganesh-bakery-enquiries.php (that plugin must be
