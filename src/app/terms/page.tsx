@@ -64,9 +64,38 @@ export default function TermsPage() {
             <h2 className="font-display text-xl font-semibold text-[color:var(--text-primary)]">
               Liability &amp; Disputes
             </h2>
-            <p className="glass-subtle mt-2 rounded-2xl p-4 text-sm text-[color:var(--text-muted)]">
-              [CLIENT TO PROVIDE, with legal advice: limitation of liability, and how disputes are handled —
-              e.g. governing law and jurisdiction]
+            <p className="mt-2">
+              {siteConfig.brandName} takes reasonable care to ensure that product descriptions, prices,
+              availability, order information, and delivery details displayed on this website are accurate and
+              up to date. However, minor variations in product appearance, size, colour, texture, or packaging
+              may occur, particularly because our products are freshly prepared.
+            </p>
+            <p className="mt-2">
+              To the extent permitted by applicable law, {siteConfig.brandName} shall not be responsible for
+              delays or failures caused by circumstances beyond our reasonable control, including courier delays,
+              adverse weather, transportation disruptions, technical issues, or other unforeseen circumstances.
+            </p>
+            <p className="mt-2">
+              Nothing in these Terms is intended to exclude or limit any rights or remedies that cannot legally
+              be excluded or limited under applicable law.
+            </p>
+
+            <h3 className="mt-5 font-display text-lg font-semibold text-[color:var(--text-primary)]">
+              Dispute Resolution
+            </h3>
+            <p className="mt-2">
+              If you have a concern regarding an order, product, payment, delivery, refund, or any other service
+              provided through this website, we encourage you to contact {siteConfig.brandName} first so that we
+              can try to resolve the matter promptly and amicably.
+            </p>
+            <p className="mt-2">
+              If a dispute cannot be resolved through direct communication, it shall be handled in accordance
+              with the applicable laws of India.
+            </p>
+            <p className="mt-2">
+              Subject to applicable law, courts having appropriate jurisdiction in {siteConfig.locality}, Tamil
+              Nadu, India shall have jurisdiction over disputes arising in connection with the use of this
+              website or purchases made through it.
             </p>
           </section>
 

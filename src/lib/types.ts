@@ -13,6 +13,11 @@ export interface Category {
   productCount: number;
 }
 
+export interface ProductAttribute {
+  name: string;
+  value: string;
+}
+
 export interface Product {
   id: number;
   slug: string;
@@ -32,6 +37,9 @@ export interface Product {
   featured: boolean;
   averageRating: number | null;
   reviewCount: number;
+  /** Custom WooCommerce product attributes (Ingredients, Shelf Life, Storage,
+   *  Allergens, …) — edited in wp-admin, not hardcoded here. */
+  attributes: ProductAttribute[];
 }
 
 export interface CartLineItem {

@@ -67,9 +67,11 @@ export default function AboutPage() {
             choosing ingredients and baking each batch that has been part of the {siteConfig.brandName} name
             since {siteConfig.since}.
           </p>
-          <p className="glass-subtle mt-3 rounded-2xl p-4 text-sm text-[color:var(--text-muted)]">
-            [CLIENT TO PROVIDE: specific notes on ingredient sourcing and quality standards, if you&apos;d like
-            these detailed further]
+          <p className="glass-subtle mt-3 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
+            We bake in small batches rather than mass-produce, so every tray gets the attention it needs.
+            Ingredients are chosen for what they add to the taste, not for what&apos;s cheapest or fastest to
+            source. And the recipes themselves haven&apos;t been simplified or swapped out for convenience — they
+            still follow the same method they always have.
           </p>
         </section>
 

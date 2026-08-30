@@ -4,6 +4,7 @@ import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/serv
 import { pageMetadata } from "@/lib/seo/metadata";
 import { productSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site-config";
+import type { Product } from "@/lib/types";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PriceTag } from "@/components/shared/PriceTag";
 import { RatingStars } from "@/components/shared/RatingStars";
@@ -11,6 +12,16 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductPurchasePanel } from "@/components/product/ProductPurchasePanel";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
+
+// Ingredients/Shelf Life/Storage/Allergens are read from each product's
+// WooCommerce custom attributes (wp-admin → Products → edit product →
+// Attributes) rather than hardcoded here, so the client can update them
+// without a code deploy. Falls back to a "[CLIENT TO PROVIDE]" placeholder
+// when an attribute hasn't been set — getting food-safety facts wrong on a
+// live site is a real risk, not just a copy nicety.
+function findAttribute(product: Product, name: string): string | null {
+  return product.attributes.find((a) => a.name.toLowerCase() === name.toLowerCase())?.value ?? null;
+}
 
 export async function generateStaticParams() {
   const products = await getAllProducts();
@@ -81,19 +92,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <dl className="glass-card mt-8 grid grid-cols-2 gap-5 rounded-[var(--radius-card)] p-5 text-sm">
               <div>
                 <dt className="font-medium text-[color:var(--gold-400)]">Ingredients</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">[CLIENT TO PROVIDE: verified ingredient list]</dd>
+                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Ingredients") ?? "[CLIENT TO PROVIDE: verified ingredient list]"}</dd>
               </div>
               <div>
                 <dt className="font-medium text-[color:var(--gold-400)]">Shelf Life</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">[CLIENT TO PROVIDE: verified shelf life]</dd>
+                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Shelf Life") ?? "[CLIENT TO PROVIDE: verified shelf life]"}</dd>
               </div>
               <div>
                 <dt className="font-medium text-[color:var(--gold-400)]">Storage</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">[CLIENT TO PROVIDE: storage instructions]</dd>
+                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Storage") ?? "[CLIENT TO PROVIDE: storage instructions]"}</dd>
               </div>
               <div>
                 <dt className="font-medium text-[color:var(--gold-400)]">Allergens</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">[CLIENT TO PROVIDE: verified allergen information]</dd>
+                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Allergens") ?? "[CLIENT TO PROVIDE: verified allergen information]"}</dd>
               </div>
             </dl>
 

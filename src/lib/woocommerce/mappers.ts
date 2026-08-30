@@ -65,6 +65,9 @@ export function mapProduct(raw: WCProduct, categoriesById: Map<number, Category>
     featured: raw.featured,
     averageRating: raw.rating_count > 0 ? toNumberOrNull(raw.average_rating) : null,
     reviewCount: raw.rating_count,
+    attributes: (raw.attributes || [])
+      .filter((a) => a.options?.length)
+      .map((a) => ({ name: a.name, value: a.options.join(", ") })),
   };
 }
 

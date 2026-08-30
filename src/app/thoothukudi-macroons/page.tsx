@@ -70,9 +70,9 @@ export default async function ThoothukudiMacroonsPage() {
             baked to since {siteConfig.since} — part of the wider {siteConfig.brandName} family heritage in{" "}
             {siteConfig.locality}.
           </p>
-          <p className="glass-subtle mt-3 rounded-2xl p-4 text-sm text-[color:var(--text-muted)]">
-            [CLIENT TO PROVIDE: specific ingredients, texture notes, and what makes {siteConfig.shopBranch}&apos;s
-            macaroons distinctive]
+          <p className="glass-subtle mt-3 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
+            Just three ingredients — egg whites, cashew nuts, and sugar — whipped and baked low and slow. No
+            shortcuts, no flour.
           </p>
         </section>
 

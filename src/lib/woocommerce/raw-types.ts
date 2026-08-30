@@ -19,6 +19,15 @@ export interface WCCategory {
   image: WCImage | null;
 }
 
+export interface WCAttribute {
+  id: number;
+  name: string;
+  position: number;
+  visible: boolean;
+  variation: boolean;
+  options: string[];
+}
+
 export interface WCProduct {
   id: number;
   name: string;
@@ -38,4 +47,5 @@ export interface WCProduct {
   featured: boolean;
   average_rating: string;
   rating_count: number;
+  attributes: WCAttribute[];
 }
