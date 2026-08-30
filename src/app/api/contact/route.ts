@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import { notifyContactEnquiry } from "@/lib/brevo";
+import { saveEnquiry } from "@/lib/wordpress";
 
 interface ContactPayload {
   name: string;
   contact: string;
   message: string;
+  formType?: "contact" | "bulk-order";
 }
 
 export async function POST(request: Request) {
@@ -14,14 +16,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Missing required fields." }, { status: 400 });
   }
 
-  // Best-effort: the visitor's submission is valid regardless of whether
-  // Brevo is reachable, so a transient failure there shouldn't fail the
-  // request — it's already logged server-side inside notifyContactEnquiry.
-  await notifyContactEnquiry({
-    name: body.name.trim(),
-    contact: body.contact.trim(),
-    message: body.message.trim(),
-  });
+  const name = body.name.trim();
+  const contact = body.contact.trim();
+  const message = body.message.trim();
+  const formType = body.formType === "bulk-order" ? "bulk-order" : "contact";
+
+  // Best-effort, both in parallel: the visitor's submission is valid
+  // regardless of whether Brevo or WordPress are reachable, so a transient
+  // failure in either shouldn't fail the request — both log their own
+  // errors server-side rather than throwing.
+  await Promise.all([
+    notifyContactEnquiry({ name, contact, message }),
+    saveEnquiry({ name, contact, message, formType }),
+  ]);
 
   return NextResponse.json({ ok: true });
 }

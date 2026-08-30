@@ -8,7 +8,7 @@ interface AccountPrefill {
   email: string;
 }
 
-export function ContactForm() {
+export function ContactForm({ formType = "contact" }: { formType?: "contact" | "bulk-order" }) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [account, setAccount] = useState<AccountPrefill | null>(null);
 
@@ -62,6 +62,7 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       className="glass-card space-y-4 rounded-[var(--radius-card)] p-6"
     >
+      <input type="hidden" name="formType" value={formType} />
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-[color:var(--text-primary)]">
           Name

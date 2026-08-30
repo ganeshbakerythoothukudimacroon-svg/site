@@ -64,7 +64,7 @@ export default function BulkOrdersPage() {
         <div className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Request a Bulk Order</h2>
           <div className="mt-4">
-            <ContactForm />
+            <ContactForm formType="bulk-order" />
           </div>
         </div>
       </div>
