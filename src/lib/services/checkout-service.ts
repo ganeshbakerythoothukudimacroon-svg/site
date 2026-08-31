@@ -67,10 +67,10 @@ export async function checkout(request: CheckoutRequest): Promise<CheckoutResult
   const lastName = rest.join(" ");
 
   const order = await orderRepository.createOrder({
-    status: "on-hold",
+    status: "pending",
     set_paid: false,
-    payment_method: "other",
-    payment_method_title: "Payment to be confirmed with customer",
+    payment_method: "razorpay",
+    payment_method_title: "UPI, Cards, NetBanking",
     ...(customer && { customer_id: customer.id }),
     billing: {
       first_name: firstName || request.customer.name,
@@ -93,7 +93,7 @@ export async function checkout(request: CheckoutRequest): Promise<CheckoutResult
       country: "IN",
     },
     line_items: verifiedLineItems,
-    customer_note: "Order placed via website — payment to be arranged directly with the customer.",
+    customer_note: "Order placed via website — paid through Razorpay.",
   });
 
   return {

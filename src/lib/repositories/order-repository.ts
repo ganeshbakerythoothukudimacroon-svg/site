@@ -1,7 +1,7 @@
 import "server-only";
 import { WooCommerceApiError, wcFetch } from "@/lib/woocommerce/client";
 import { mapOrder } from "@/lib/woocommerce/mappers";
-import type { WCOrder, WCOrderCreatePayload } from "@/lib/woocommerce/order-raw-types";
+import type { WCOrder, WCOrderCreatePayload, WCOrderUpdatePayload } from "@/lib/woocommerce/order-raw-types";
 import type { Order } from "@/lib/types";
 
 /** Pure data access — no business/validation rules here (see order-service.ts). */
@@ -31,6 +31,20 @@ export async function createOrder(payload: WCOrderCreatePayload): Promise<Order>
     {},
     {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      next: { revalidate: 0 },
+    }
+  );
+  return mapOrder(raw);
+}
+
+export async function updateOrder(id: number, payload: WCOrderUpdatePayload): Promise<Order> {
+  const raw = await wcFetch<WCOrder>(
+    `orders/${id}`,
+    {},
+    {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
       next: { revalidate: 0 },

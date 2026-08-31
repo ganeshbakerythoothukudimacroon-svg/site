@@ -14,6 +14,15 @@ export function getOrder(id: number): Promise<Order | null> {
   return orderRepository.getOrderById(id);
 }
 
+/** Marks an order paid after its Razorpay payment signature has been verified. */
+export function markOrderPaid(orderId: number, transactionId: string): Promise<Order> {
+  return orderRepository.updateOrder(orderId, {
+    status: "processing",
+    set_paid: true,
+    transaction_id: transactionId,
+  });
+}
+
 /**
  * Looks up an order by its number, but only ever returns it if the caller
  * also supplied the matching billing email or phone — an order number

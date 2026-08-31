@@ -33,3 +33,9 @@ export interface WCOrderCreatePayload {
   line_items: { product_id: number; quantity: number }[];
   customer_note?: string;
 }
+
+export interface WCOrderUpdatePayload {
+  status?: string;
+  set_paid?: boolean;
+  transaction_id?: string;
+}

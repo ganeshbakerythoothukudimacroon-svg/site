@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ShoppingBag } from "lucide-react";
@@ -15,12 +16,30 @@ interface AccountPrefill {
   address: CustomerAddress | null;
 }
 
+interface RazorpaySuccessResponse {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}
+
+interface RazorpayInstance {
+  open: () => void;
+  on: (event: "payment.failed", handler: (response: { error: { description: string } }) => void) => void;
+}
+
+declare global {
+  interface Window {
+    Razorpay: new (options: Record<string, unknown>) => RazorpayInstance;
+  }
+}
+
 export function CheckoutForm() {
   const { items, subtotal, clearCart } = useCart();
   const router = useRouter();
-  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "paying" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [account, setAccount] = useState<AccountPrefill | null>(null);
+  const [razorpayReady, setRazorpayReady] = useState(false);
 
   useEffect(() => {
     // Not signed in is a completely normal outcome here (checkout works
@@ -49,8 +68,14 @@ export function CheckoutForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("loading");
     setError(null);
+
+    if (!razorpayReady || !window.Razorpay) {
+      setError("Payment is still loading — please wait a moment and try again.");
+      return;
+    }
+
+    setStatus("loading");
     const data = Object.fromEntries(new FormData(e.currentTarget).entries()) as Record<string, string>;
 
     const payload: CheckoutRequest = {
@@ -67,27 +92,100 @@ export function CheckoutForm() {
     };
 
     try {
-      const res = await fetch("/api/checkout", {
+      // Step 1: create the real WooCommerce order (unpaid, "pending") —
+      // this is what actually prices and reserves the order.
+      const checkoutRes = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const json = await res.json();
+      const checkoutJson = await checkoutRes.json();
 
-      if (!res.ok || !json.ok) {
-        setError(json.error || "Something went wrong — please try again.");
+      if (!checkoutRes.ok || !checkoutJson.ok) {
+        setError(checkoutJson.error || "Something went wrong — please try again.");
         setStatus("idle");
         return;
       }
 
-      try {
-        sessionStorage.setItem(`order-confirmation-${json.order.orderId}`, JSON.stringify(json.order));
-      } catch {
-        // Non-fatal — confirmation page just shows the generic fallback.
+      const order = checkoutJson.order;
+
+      // Step 2: open a Razorpay order for that order's real, server-priced total.
+      const rpOrderRes = await fetch("/api/payments/razorpay/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: order.orderId }),
+      });
+      const rpOrderJson = await rpOrderRes.json();
+
+      if (!rpOrderRes.ok || !rpOrderJson.ok) {
+        setError(rpOrderJson.error || "Couldn't start the payment — please try again.");
+        setStatus("idle");
+        return;
       }
 
-      clearCart();
-      router.push(`/order-confirmation/${json.order.orderId}`);
+      setStatus("paying");
+
+      const razorpay = new window.Razorpay({
+        key: rpOrderJson.keyId,
+        amount: rpOrderJson.amount,
+        currency: rpOrderJson.currency,
+        order_id: rpOrderJson.razorpayOrderId,
+        name: siteConfig.brandName,
+        description: `Order #${order.orderNumber}`,
+        prefill: {
+          name: data.name,
+          email: data.email || undefined,
+          contact: data.phone,
+        },
+        theme: { color: "#e8a94a" },
+        handler: async (response: RazorpaySuccessResponse) => {
+          try {
+            const verifyRes = await fetch("/api/payments/razorpay/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                orderId: order.orderId,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+            const verifyJson = await verifyRes.json();
+
+            if (!verifyRes.ok || !verifyJson.ok) {
+              setError(verifyJson.error || "Payment could not be verified — please contact us before retrying.");
+              setStatus("idle");
+              return;
+            }
+
+            try {
+              sessionStorage.setItem(`order-confirmation-${order.orderId}`, JSON.stringify(order));
+            } catch {
+              // Non-fatal — confirmation page just shows the generic fallback.
+            }
+
+            clearCart();
+            router.push(`/order-confirmation/${order.orderId}`);
+          } catch {
+            setError("Payment succeeded but we couldn't confirm it here — please contact us with your order number.");
+            setStatus("idle");
+          }
+        },
+        modal: {
+          // User closed the modal without paying — the order stays
+          // "pending" in WooCommerce, so this is a safe, resumable state.
+          ondismiss: () => {
+            setStatus("idle");
+          },
+        },
+      });
+
+      razorpay.on("payment.failed", (response) => {
+        setError(response.error?.description || "Payment failed — please try again.");
+        setStatus("idle");
+      });
+
+      razorpay.open();
     } catch {
       setError("Something went wrong — please check your connection and try again.");
       setStatus("idle");
@@ -98,6 +196,7 @@ export function CheckoutForm() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" onLoad={() => setRazorpayReady(true)} />
       {/* Remounts once with prefilled values when a saved address loads —
           simpler than converting every field to controlled state, and the
           fetch resolves fast enough that a guest typing in that instant is
@@ -126,14 +225,13 @@ export function CheckoutForm() {
         {error && <p className="text-sm text-red-400">{error}</p>}
         <button
           type="submit"
-          disabled={status === "loading"}
+          disabled={status === "loading" || status === "paying" || !razorpayReady}
           className="glow-gold-hover flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)] disabled:opacity-60"
         >
-          {status === "loading" ? "Placing Order…" : "Place Order"}
+          {status === "loading" ? "Placing Order…" : status === "paying" ? "Waiting for Payment…" : "Pay & Place Order"}
         </button>
         <p className="text-xs text-[color:var(--text-muted)]">
-          Online payment is being finalized — your order is recorded and we&apos;ll confirm payment and delivery
-          with you directly.
+          Secure payment via UPI, cards, or netbanking through Razorpay.
         </p>
       </form>
 
