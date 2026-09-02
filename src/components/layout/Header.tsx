@@ -73,15 +73,18 @@ export function Header() {
             <Menu className="h-5 w-5" />
           </button>
 
-          <Link href="/" className="flex shrink-0 items-center lg:mr-4" aria-label="Ganesh Bakery home">
+          <Link href="/" className="flex shrink-0 items-center gap-2.5 lg:mr-4" aria-label="Ganesh Bakery home">
             <Image
-              src="/brand/logo-horizontal.png"
-              alt={`${siteConfig.brandName} — Tuticorin — Est. ${siteConfig.since}`}
-              width={500}
-              height={200}
+              src="/brand/emblem.png"
+              alt=""
+              width={128}
+              height={128}
               priority
-              className="h-12 w-auto sm:h-14 lg:h-16"
+              className="h-10 w-10 object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14"
             />
+            <span className="hidden font-display text-xl italic leading-tight text-[color:var(--gold-400)] sm:inline sm:text-2xl">
+              {siteConfig.brandName}
+            </span>
           </Link>
 
           <nav className="hidden flex-1 items-center justify-center gap-8 lg:flex" aria-label="Primary">
