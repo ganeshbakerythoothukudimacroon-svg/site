@@ -73,16 +73,16 @@ export function Header() {
             <Menu className="h-5 w-5" />
           </button>
 
-          <Link href="/" className="flex shrink-0 items-center gap-2.5 lg:mr-4" aria-label="Ganesh Bakery home">
+          <Link href="/" className="flex min-w-0 items-center gap-2 lg:mr-4 lg:shrink-0" aria-label="Ganesh Bakery home">
             <Image
               src="/brand/emblem.png"
               alt=""
               width={128}
               height={128}
               priority
-              className="h-10 w-10 object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14"
+              className="h-9 w-9 shrink-0 object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14"
             />
-            <span className="hidden font-display text-xl italic leading-tight text-[color:var(--gold-400)] sm:inline sm:text-2xl">
+            <span className="truncate font-display text-base italic leading-tight text-[color:var(--gold-400)] sm:text-xl lg:text-2xl">
               {siteConfig.brandName}
             </span>
           </Link>
