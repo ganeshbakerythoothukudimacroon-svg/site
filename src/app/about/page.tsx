@@ -8,7 +8,7 @@ import Link from "next/link";
 export const metadata: Metadata = pageMetadata({
   title: "About Ganesh Bakery | Shop 532, Thoothukudi",
   description:
-    "Ganesh Bakery, Shop No. 532 is part of the Ganesh Bakery family heritage in Thoothukudi (Tuticorin), baking traditional biscuits, rusk and macroons since 1964.",
+    "Ganesh Bakery, Shop No. 532, Thoothukudi (Tuticorin) — a family bakery established in 1964, making biscuits, rusk, nutbar and macroons.",
   path: "/about",
 });
 
@@ -27,10 +27,8 @@ export default function AboutPage() {
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Who We Are</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            {siteConfig.brandName} is a family bakery name that has stood in {siteConfig.locality} since{" "}
-            {siteConfig.since}. {siteConfig.shopBranch} is one part of that family heritage — an independent
-            bakery carrying the {siteConfig.brandName} name forward with its own shop, its own bakers, and its
-            own day-to-day craft.
+            {siteConfig.brandName} is a family bakery in {siteConfig.locality} (Tuticorin), Tamil Nadu,
+            established in {siteConfig.since}. {siteConfig.shopBranch} is our main bakery and shop.
           </p>
         </section>
 
@@ -49,22 +47,22 @@ export default function AboutPage() {
             </div>
           </div>
           <p className="mt-5 text-[color:var(--text-secondary)] text-pretty">
-            The {siteConfig.brandName} name has been associated with {siteConfig.locality}&apos;s bakery
-            tradition since {siteConfig.since}. At {siteConfig.shopBranch}, that heritage continues today.
+            The {siteConfig.brandName} name has been part of {siteConfig.locality}&apos;s bakery scene since{" "}
+            {siteConfig.since}.
           </p>
 
           <div className="mt-6 flex flex-wrap justify-center gap-6">
             <figure className="w-36 text-center">
               <div className="glass-subtle glow-gold relative mx-auto aspect-[3/4] w-full overflow-hidden rounded-2xl">
                 <Image
-                  src="/brand/founder-dharmalingam-nadar.jpg"
+                  src="/brand/founder-dharmalingam.jpg"
                   alt={`Shri K. Dharmalingam — founder of ${siteConfig.brandName}, ${siteConfig.since}`}
                   fill
                   className="object-cover"
                 />
               </div>
               <figcaption className="mt-2">
-                <p className="text-sm font-medium text-[color:var(--text-primary)]">Shri K. Dharmalingam </p>
+                <p className="text-sm font-medium text-[color:var(--text-primary)]">Shri K. Dharmalingam</p>
                 <p className="label-tracked mt-0.5 text-[10px] text-[color:var(--text-muted)]">Founder, {siteConfig.since}</p>
               </figcaption>
             </figure>
@@ -85,42 +83,49 @@ export default function AboutPage() {
           </div>
 
           <p className="glass-subtle mt-6 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
-            It began with our grandfather, Shri K. Dharmalingam , who founded the bakery in {siteConfig.since}.
-            Our father, Shri T. Katteri Raj, took over after him and carried it forward, keeping the same recipes and
-            the same standards. Today, we continue that legacy at {siteConfig.shopBranch} — three generations of
-            the same family, still baking the way it started.
+            Our grandfather, Shri K. Dharmalingam, founded the bakery in {siteConfig.since}. Our father, Shri T.
+            Katteri Raj, carried it forward after him. Today, we continue the family&apos;s work at{" "}
+            {siteConfig.shopBranch} — three generations of the same family.
           </p>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Philosophy &amp; Quality</h2>
+          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Products &amp; Food Information</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            Quality, to us, is a standard carried forward rather than a claim we make — the same care in
-            choosing ingredients and baking each batch that has been part of the {siteConfig.brandName} name
-            since {siteConfig.since}.
+            We make biscuits, rusk, nutbar and macroons, freshly baked and sold by the kilogram. Ingredient,
+            allergen, shelf-life and storage information is shown on each product page — please read it before
+            ordering, especially if you or anyone you are ordering for has a food allergy.
           </p>
-          <p className="glass-subtle mt-3 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
-            We bake in small batches rather than mass-produce, so every tray gets the attention it needs.
-            Ingredients are chosen for what they add to the taste, not for what&apos;s cheapest or fastest to
-            source. And the recipes themselves haven&apos;t been simplified or swapped out for convenience — they
-            still follow the same method they always have.
+          <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+            Our food is perishable and prepared for each order, so all sales are final. Please read our{" "}
+            <Link href="/returns-policy" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
+              Refund &amp; Returns Policy
+            </Link>{" "}
+            and{" "}
+            <Link href="/shipping-policy" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
+              Shipping Policy
+            </Link>{" "}
+            before you order.
           </p>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">{siteConfig.shopBranch}</h2>
+          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Where to Find Us</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            {siteConfig.shopBranch} is our own independent bakery and shop in {siteConfig.locality}. It is
-            distinct from other Ganesh Bakery family locations, while sharing the same family name and baking
-            heritage.
+            {siteConfig.shopBranch} is our main bakery and shop in {siteConfig.locality}, at{" "}
+            {siteConfig.address.line1}, {siteConfig.address.line2}. You can also find us at our second location,{" "}
+            {siteConfig.secondaryLocation.address}. Full details for both are on our{" "}
+            <Link href="/contact" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
+              Contact page
+            </Link>
+            .
           </p>
         </section>
 
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Commitment</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            We bake fresh, use quality ingredients, and aim to make ordering from {siteConfig.shopBranch} as easy
-            as visiting in person. Browse our{" "}
+            We aim to make ordering from {siteConfig.shopBranch} as easy as visiting in person. Browse our{" "}
             <Link href="/shop" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
               shop
             </Link>{" "}

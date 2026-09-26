@@ -26,15 +26,13 @@ export function HeritageStory() {
               A Taste That Belongs to <span className="italic text-gradient-gold">Thoothukudi</span>
             </h2>
             <p className="mt-5 text-base text-[color:var(--text-secondary)] text-pretty">
-              {siteConfig.brandName} has carried the name of Tuticorin&apos;s baking tradition since{" "}
-              {siteConfig.since}. At {siteConfig.shopBranch}, that same family heritage continues today — recipes
-              handed down, ingredients chosen with care, and every batch baked with the intention of being shared.
+              {siteConfig.brandName} has been part of Tuticorin&apos;s bakery scene since {siteConfig.since}.{" "}
+              {siteConfig.shopBranch} is our main bakery and shop today.
             </p>
             <p className="glass-subtle mt-5 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
-              It began with our grandfather, Shri K. Dharmalingam , who founded the bakery in{" "}
-              {siteConfig.since}. Our father, Shri T. Katteri Raj, carried it forward after him, and today we continue
-              that same family legacy at {siteConfig.shopBranch} — three generations now, still baking the way it
-              started.
+              Our grandfather, Shri K. Dharmalingam, founded the bakery in {siteConfig.since}. Our father, Shri T.
+              Katteri Raj, carried it forward after him, and today we continue the family&apos;s work at{" "}
+              {siteConfig.shopBranch} — three generations of the same family.
             </p>
             <Link
               href="/about"
