@@ -222,6 +222,29 @@ export function CheckoutForm() {
           <Field id="state" label="State" required defaultValue={prefill?.state || siteConfig.address.state} />
           <Field id="pincode" label="Pincode" required defaultValue={prefill?.pincode} />
         </div>
+        <label className="flex items-start gap-2.5 text-xs text-[color:var(--text-secondary)]">
+          <input
+            type="checkbox"
+            name="acceptPolicies"
+            required
+            className="mt-0.5 h-4 w-4 shrink-0 accent-[color:var(--gold-500)]"
+          />
+          <span>
+            I understand that all sales are final and I have read and agree to the{" "}
+            <Link href="/returns-policy" target="_blank" className="font-medium text-[color:var(--gold-400)] underline">
+              Refund &amp; Returns Policy
+            </Link>
+            ,{" "}
+            <Link href="/shipping-policy" target="_blank" className="font-medium text-[color:var(--gold-400)] underline">
+              Shipping Policy
+            </Link>{" "}
+            and{" "}
+            <Link href="/terms" target="_blank" className="font-medium text-[color:var(--gold-400)] underline">
+              Terms &amp; Conditions
+            </Link>
+            .
+          </span>
+        </label>
         {error && <p className="text-sm text-red-400">{error}</p>}
         <button
           type="submit"
