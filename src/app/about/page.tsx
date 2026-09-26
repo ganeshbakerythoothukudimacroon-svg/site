@@ -28,8 +28,9 @@ export default function AboutPage() {
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Who We Are</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
             {siteConfig.brandName} is a family bakery name that has stood in {siteConfig.locality} since{" "}
-            {siteConfig.since}. {siteConfig.shopBranch} is our main bakery and shop, carrying that family name
-            and heritage forward with our own bakers and our own day-to-day craft.
+            {siteConfig.since}. {siteConfig.shopBranch} is one part of that family heritage — an independent
+            bakery carrying the {siteConfig.brandName} name forward with its own shop, its own bakers, and its
+            own day-to-day craft.
           </p>
         </section>
 
@@ -63,7 +64,7 @@ export default function AboutPage() {
                 />
               </div>
               <figcaption className="mt-2">
-                <p className="text-sm font-medium text-[color:var(--text-primary)]">Shri K. Dharmalingam Nadar</p>
+                <p className="text-sm font-medium text-[color:var(--text-primary)]">Shri K. Dharmalingam </p>
                 <p className="label-tracked mt-0.5 text-[10px] text-[color:var(--text-muted)]">Founder, {siteConfig.since}</p>
               </figcaption>
             </figure>
@@ -84,7 +85,7 @@ export default function AboutPage() {
           </div>
 
           <p className="glass-subtle mt-6 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
-            It began with our grandfather, Shri K. Dharmalingam Nadar, who founded the bakery in {siteConfig.since}.
+            It began with our grandfather, Shri K. Dharmalingam , who founded the bakery in {siteConfig.since}.
             Our father, Shri T. Katteri Raj, took over after him and carried it forward, keeping the same recipes and
             the same standards. Today, we continue that legacy at {siteConfig.shopBranch} — three generations of
             the same family, still baking the way it started.
@@ -107,15 +108,11 @@ export default function AboutPage() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Where to Find Us</h2>
+          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">{siteConfig.shopBranch}</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            {siteConfig.shopBranch} is our main bakery and shop in {siteConfig.locality}, at{" "}
-            {siteConfig.address.line1}, {siteConfig.address.line2}. You can also find us at our second location,{" "}
-            {siteConfig.secondaryLocation.address}. Full details for both are on our{" "}
-            <Link href="/contact" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
-              Contact page
-            </Link>
-            .
+            {siteConfig.shopBranch} is our own independent bakery and shop in {siteConfig.locality}. It is
+            distinct from other Ganesh Bakery family locations, while sharing the same family name and baking
+            heritage.
           </p>
         </section>
 
