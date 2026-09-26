@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = pageMetadata({
   title: "Bakery in Thoothukudi | Ganesh Bakery Shop 532",
   description:
-    "Looking for a bakery in Thoothukudi (Tuticorin)? Ganesh Bakery, Shop No. 532 bakes traditional biscuits, rusk and macaroons since 1964 — visit us or order online.",
+    "Looking for a bakery in Thoothukudi (Tuticorin)? Ganesh Bakery, Shop No. 532 bakes traditional biscuits, rusk and macroons since 1964 — visit us or order online.",
   path: "/bakery-in-thoothukudi",
 });
 
@@ -29,7 +29,7 @@ export default async function BakeryInThoothukudiPage() {
         </h1>
         <p className="mt-4 text-lg text-[color:var(--text-secondary)] text-pretty">
           {siteConfig.brandName}, {siteConfig.shopBranch} has been baking in {siteConfig.locality} (Tuticorin)
-          since {siteConfig.since} — traditional biscuits, rusk, nutbar and macaroons, made the way they always
+          since {siteConfig.since} — traditional biscuits, rusk, nutbar and macroons, made the way they always
           have been.
         </p>
 
@@ -91,7 +91,7 @@ export default async function BakeryInThoothukudiPage() {
           </ul>
           <p className="mt-4">
             <Link href="/thoothukudi-macroons" className="font-semibold text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
-              Read more about our Thoothukudi macaroons →
+              Read more about our Thoothukudi macroons →
             </Link>
           </p>
         </section>

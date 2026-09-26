@@ -25,6 +25,7 @@ export default function ContactPage() {
         </p>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2">
+          <div className="space-y-6">
           <div className="glass-card space-y-6 rounded-[var(--radius-card)] p-6">
             <ContactRow icon={MapPin} label="Address">
               <p className="text-[color:var(--text-primary)]">{formatAddress()}</p>
@@ -69,6 +70,22 @@ export default function ContactPage() {
             <ContactRow icon={FileText} label="GSTIN">
               <p className="text-[color:var(--text-primary)]">{siteConfig.gstNumber}</p>
             </ContactRow>
+          </div>
+
+          <div className="glass-subtle space-y-5 rounded-[var(--radius-card)] p-6">
+            <p className="label-tracked text-[color:var(--text-muted)]">Also Find Us At</p>
+            <ContactRow icon={MapPin} label="Second Location">
+              <p className="text-[color:var(--text-primary)]">{siteConfig.secondaryLocation.address}</p>
+            </ContactRow>
+            <ContactRow icon={Phone} label="Phone">
+              <a
+                href={`tel:${siteConfig.secondaryLocation.phoneTel}`}
+                className="text-[color:var(--text-primary)] hover:text-[color:var(--gold-400)]"
+              >
+                {siteConfig.secondaryLocation.phone}
+              </a>
+            </ContactRow>
+          </div>
           </div>
 
           <ContactForm />

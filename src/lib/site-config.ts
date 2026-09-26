@@ -21,6 +21,15 @@ export const siteConfig = {
   },
   gstNumber: "33AIIPP5153F1ZC",
 
+  // Secondary location — listed on the Contact page only. The address above
+  // (Shop No. 532) remains the primary location used everywhere else
+  // (schema, footer, maps, policies).
+  secondaryLocation: {
+    address: "3B, 3C & 3D, VVD Road, Thoothukudi – 628 003",
+    phone: "0461-2362333",
+    phoneTel: "+914612362333",
+  },
+
   // Verified against the client's own Google Maps listing (place id
   // 0x3b03efff3124c9f3:0xf037b0b82422d271) — not geocoded/guessed.
   geo: { lat: 8.8020712, lng: 78.1519133 },

@@ -16,7 +16,7 @@ export async function generateMetadata({
   return pageMetadata({
     title: "Ganesh Bakery Thoothukudi | Buy Bakery Products Online",
     description:
-      "Shop traditional bakery products from Ganesh Bakery, Shop No. 532, Thoothukudi — biscuits, rusk, nutbar and macaroons, freshly baked and delivered.",
+      "Shop traditional bakery products from Ganesh Bakery, Shop No. 532, Thoothukudi — biscuits, rusk, nutbar and macroons, freshly baked and delivered.",
     path: "/shop",
     noindex: Boolean(q),
   });
@@ -43,7 +43,7 @@ export default async function ShopPage({
           {q ? `Search results for “${q}”` : "Shop Bakery Products"}
         </h1>
         <p className="mt-3 max-w-2xl text-[color:var(--text-secondary)]">
-          Traditional biscuits, rusk, nutbar and macaroons from Ganesh Bakery, Shop No. 532, Thoothukudi —
+          Traditional biscuits, rusk, nutbar and macroons from Ganesh Bakery, Shop No. 532, Thoothukudi —
           baked in small batches and shipped across India.
         </p>
 

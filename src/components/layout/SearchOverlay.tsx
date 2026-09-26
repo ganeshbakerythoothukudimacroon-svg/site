@@ -11,11 +11,11 @@ const MAX_RECENT = 5;
 const CATEGORIES = [
   { label: "Biscuits", slug: "biscuits" },
   { label: "Rusks", slug: "rusks" },
-  { label: "Macaroons", slug: "macaroons" },
+  { label: "Macroons", slug: "macaroons" },
   { label: "Bakery Snacks", slug: "bakery-snacks" },
 ];
 
-const POPULAR = ["Thoothukudi Macaroons", "Butter Biscuit", "Tea Rusk", "Nutbar"];
+const POPULAR = ["Thoothukudi Macroons", "Butter Biscuit", "Tea Rusk", "Nutbar"];
 
 export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [mounted, setMounted] = useState(false);
@@ -103,7 +103,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search macaroons, biscuits, rusk…"
+            placeholder="Search macroons, biscuits, rusk…"
             className="w-full bg-transparent text-[15px] text-[color:var(--text-primary)] placeholder:text-[color:var(--text-muted)] focus:outline-none"
           />
           <button

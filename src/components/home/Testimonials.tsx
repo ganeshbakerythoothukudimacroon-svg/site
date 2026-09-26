@@ -7,7 +7,7 @@ const PLACEHOLDER_TESTIMONIALS = [
     attribution: "Customer, Thoothukudi",
   },
   {
-    quote: "Ordered rusks and macaroons for a family function and everyone kept asking where they were from. Fresh, well packed, and gone within a day.",
+    quote: "Ordered rusks and macroons for a family function and everyone kept asking where they were from. Fresh, well packed, and gone within a day.",
     attribution: "Customer, Thoothukudi",
   },
   {

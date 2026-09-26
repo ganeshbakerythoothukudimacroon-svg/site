@@ -12,9 +12,9 @@ import { localBusinessSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ganesh Bakery | Thoothukudi Macaroon & Traditional Bakery",
+  title: "Ganesh Bakery | Thoothukudi Macroons & Traditional Bakery",
   description:
-    "Ganesh Bakery, Thoothukudi — home of the Thoothukudi Macaroon. Shop authentic macaroons, butter biscuits, ghee biscuits, tea rusk and other traditional bakery specialities from Shop No. 532, freshly prepared since 1964.",
+    "Ganesh Bakery, Thoothukudi — home of the Thoothukudi Macroons. Shop authentic macroons, butter biscuits, ghee biscuits, tea rusk and other traditional bakery specialities from Shop No. 532, freshly prepared since 1964.",
   path: "/",
 });
 
@@ -28,8 +28,8 @@ export default async function HomePage() {
       <JsonLd data={localBusinessSchema(products)} />
       <Hero
         imageUrl={heroProduct?.images[0]?.url ?? null}
-        imageAlt={isMacaroon ? "Thoothukudi Macaroons from Ganesh Bakery" : (heroProduct?.name ?? "Ganesh Bakery")}
-        imageCaption={isMacaroon ? "Thoothukudi Macaroons" : undefined}
+        imageAlt={isMacaroon ? "Thoothukudi Macroons from Ganesh Bakery" : (heroProduct?.name ?? "Ganesh Bakery")}
+        imageCaption={isMacaroon ? "Thoothukudi Macroons" : undefined}
       />
       <TrustStrip />
       <SignatureProducts products={products} />

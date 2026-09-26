@@ -1,14 +1,14 @@
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { pageMetadata } from "@/lib/seo/metadata";
+import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo/metadata";
-import { siteConfig } from "@/lib/site-config";
-import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Ganesh Bakery | Shop 532, Thoothukudi",
   description:
-    "Ganesh Bakery, Shop No. 532 is part of the Ganesh Bakery family heritage in Thoothukudi (Tuticorin), baking traditional biscuits, rusk and macaroons since 1964.",
+    "Ganesh Bakery, Shop No. 532 is part of the Ganesh Bakery family heritage in Thoothukudi (Tuticorin), baking traditional biscuits, rusk and macroons since 1964.",
   path: "/about",
 });
 
@@ -58,13 +58,13 @@ export default function AboutPage() {
               <div className="glass-subtle glow-gold relative mx-auto aspect-[3/4] w-full overflow-hidden rounded-2xl">
                 <Image
                   src="/brand/founder-dharmalingam-nadar.jpg"
-                  alt={`Sri K. Dharmalingam Nadar — founder of ${siteConfig.brandName}, ${siteConfig.since}`}
+                  alt={`Shri K. Dharmalingam — founder of ${siteConfig.brandName}, ${siteConfig.since}`}
                   fill
                   className="object-cover"
                 />
               </div>
               <figcaption className="mt-2">
-                <p className="text-sm font-medium text-[color:var(--text-primary)]">Sri K. Dharmalingam Nadar</p>
+                <p className="text-sm font-medium text-[color:var(--text-primary)]">Shri K. Dharmalingam Nadar</p>
                 <p className="label-tracked mt-0.5 text-[10px] text-[color:var(--text-muted)]">Founder, {siteConfig.since}</p>
               </figcaption>
             </figure>
@@ -72,21 +72,21 @@ export default function AboutPage() {
               <div className="glass-subtle glow-gold relative mx-auto aspect-[3/4] w-full overflow-hidden rounded-2xl">
                 <Image
                   src="/brand/father-katteri-raj.jpg"
-                  alt={`T. Katteri Raj — carried the ${siteConfig.brandName} tradition forward`}
+                  alt={`Shri T. Katteri Raj — carried the ${siteConfig.brandName} tradition forward`}
                   fill
                   className="object-cover"
                 />
               </div>
               <figcaption className="mt-2">
-                <p className="text-sm font-medium text-[color:var(--text-primary)]">T. Katteri Raj</p>
+                <p className="text-sm font-medium text-[color:var(--text-primary)]">Shri T. Katteri Raj</p>
                 <p className="label-tracked mt-0.5 text-[10px] text-[color:var(--text-muted)]">Carried the tradition forward</p>
               </figcaption>
             </figure>
           </div>
 
           <p className="glass-subtle mt-6 rounded-2xl p-4 text-sm text-[color:var(--text-secondary)]">
-            It began with our grandfather, Sri K. Dharmalingam Nadar, who founded the bakery in {siteConfig.since}.
-            Our father, T. Katteri Raj, took over after him and carried it forward, keeping the same recipes and
+            It began with our grandfather, Shri K. Dharmalingam Nadar, who founded the bakery in {siteConfig.since}.
+            Our father, Shri T. Katteri Raj, took over after him and carried it forward, keeping the same recipes and
             the same standards. Today, we continue that legacy at {siteConfig.shopBranch} — three generations of
             the same family, still baking the way it started.
           </p>

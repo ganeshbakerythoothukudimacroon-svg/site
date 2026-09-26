@@ -69,7 +69,7 @@ export default function ShippingPolicyPage() {
             </h2>
             <p className="mt-2">
               Products are packed in food-grade, sealed packaging with a protective outer layer for transit.
-              Macaroons are individually and securely packed to reduce breakage during transportation. Once
+              Macroons are individually and securely packed to reduce breakage during transportation. Once
               dispatched, tracking details are shared with you where courier tracking is available.
             </p>
           </section>

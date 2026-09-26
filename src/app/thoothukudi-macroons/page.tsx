@@ -13,18 +13,18 @@ import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Thoothukudi Macaroons | Buy Macaroons Online | Ganesh Bakery",
+  title: "Thoothukudi Macroons | Buy Macroons Online | Ganesh Bakery",
   description:
-    "Thoothukudi macaroons (also spelled macroons, from Tuticorin) — baked by Ganesh Bakery, Shop No. 532 since 1964. Order online and have them shipped to you.",
+    "Thoothukudi macroons (from Tuticorin) — baked by Ganesh Bakery, Shop No. 532 since 1964. Order online and have them shipped to you.",
   path: "/thoothukudi-macroons",
 });
 
 const relevantFaq = faqItems.filter((item) =>
   [
-    "What are Thoothukudi macaroons?",
-    "Can I buy macaroons online?",
+    "What are Thoothukudi macroons?",
+    "Can I buy macroons online?",
     "What sizes are available?",
-    "How should macaroons and biscuits be stored?",
+    "How should macroons and biscuits be stored?",
     "What is the shelf life?",
     "Do you deliver bakery products?",
   ].includes(item.question)
@@ -37,11 +37,11 @@ export default async function ThoothukudiMacroonsPage() {
   return (
     <>
       <JsonLd data={faqSchema(relevantFaq)} />
-      <Breadcrumbs items={[{ name: "Thoothukudi Macaroons", path: "/thoothukudi-macroons" }]} />
+      <Breadcrumbs items={[{ name: "Thoothukudi Macroons", path: "/thoothukudi-macroons" }]} />
 
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
         <h1 className="font-display text-4xl font-semibold text-[color:var(--text-primary)] sm:text-5xl text-balance">
-          Thoothukudi Macaroons
+          Thoothukudi Macroons
         </h1>
         <p className="mt-4 text-lg text-[color:var(--text-secondary)] text-pretty">
           A bakery specialty of Thoothukudi — also known as Tuticorin — baked by {siteConfig.brandName},{" "}
@@ -50,14 +50,14 @@ export default async function ThoothukudiMacroonsPage() {
 
         {image && (
           <div className="glass-premium relative mt-8 aspect-4/5 max-w-sm overflow-hidden rounded-[var(--radius-card)]">
-            <Image src={image.url} alt={image.alt || "Thoothukudi macaroons from Ganesh Bakery"} fill className="object-cover object-right" />
+            <Image src={image.url} alt={image.alt || "Thoothukudi macroons from Ganesh Bakery"} fill className="object-cover object-right" />
           </div>
         )}
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">What Are Thoothukudi Macaroons?</h2>
+          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">What Are Thoothukudi Macroons?</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            Thoothukudi macaroons — sometimes spelled &ldquo;macroons&rdquo; locally — are a baked confection
+            Thoothukudi macroons are a baked confection
             associated with Thoothukudi (Tuticorin) on the Tamil Nadu coast. They&apos;re distinct from French
             macarons, and have become closely tied to the city&apos;s identity as a bakery town.
           </p>
@@ -66,7 +66,7 @@ export default async function ThoothukudiMacroonsPage() {
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Why Ours Are Different</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            At {siteConfig.brandName}, {siteConfig.shopBranch}, our macaroons follow the same approach we&apos;ve
+            At {siteConfig.brandName}, {siteConfig.shopBranch}, our macroons follow the same approach we&apos;ve
             baked to since {siteConfig.since} — part of the wider {siteConfig.brandName} family heritage in{" "}
             {siteConfig.locality}.
           </p>
@@ -92,7 +92,7 @@ export default async function ThoothukudiMacroonsPage() {
               </Link>
             </div>
           ) : (
-            <p className="mt-3 text-[color:var(--text-muted)]">[CLIENT TO PROVIDE: current macaroon availability]</p>
+            <p className="mt-3 text-[color:var(--text-muted)]">[CLIENT TO PROVIDE: current macroons availability]</p>
           )}
         </section>
 

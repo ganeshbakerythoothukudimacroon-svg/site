@@ -96,10 +96,10 @@ export function Hero({
           <h1 className="font-display text-[clamp(1.875rem,4vw+1rem,2.25rem)] font-semibold leading-[1.15] text-[color:var(--text-primary)] sm:text-5xl lg:text-6xl lg:leading-[1.08] text-balance">
             {siteConfig.brandName}
             <br />
-            <span className="font-display italic text-gradient-gold">Home of the Thoothukudi Macaroon</span>
+            <span className="font-display italic text-gradient-gold">Home of the Thoothukudi Macroons</span>
           </h1>
           <p className="max-w-lg text-base text-[color:var(--text-primary)] text-pretty sm:text-lg lg:text-[color:var(--text-secondary)]">
-            Discover authentic Thoothukudi Macaroons and traditional bakery specialities from{" "}
+            Discover authentic Thoothukudi Macroons and traditional bakery specialities from{" "}
             {siteConfig.brandName}, {siteConfig.shopBranch}, {siteConfig.locality} — freshly prepared with the
             taste and tradition we&apos;ve preserved since {siteConfig.since}.
           </p>

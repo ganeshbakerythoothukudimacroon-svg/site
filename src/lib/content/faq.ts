@@ -8,8 +8,8 @@ import { formatAddress, siteConfig } from "@/lib/site-config";
  */
 export const faqItems: FAQItem[] = [
   {
-    question: "What are Thoothukudi macaroons?",
-    answer: `Thoothukudi macaroons — also spelled "macroons," and Thoothukudi is also known as Tuticorin — are a baked bakery specialty associated with the region. At ${siteConfig.brandName}, ${siteConfig.shopBranch}, we've baked ours following the same approach since ${siteConfig.since}.`,
+    question: "What are Thoothukudi macroons?",
+    answer: `Thoothukudi macroons are a baked bakery specialty associated with the region. At ${siteConfig.brandName}, ${siteConfig.shopBranch}, we've baked ours following the same approach since ${siteConfig.since}.`,
   },
   {
     question: `Where is ${siteConfig.brandName} Shop No. 532 located?`,
@@ -21,9 +21,9 @@ export const faqItems: FAQItem[] = [
       "Yes, we offer delivery on our bakery products. [CLIENT TO PROVIDE: delivery areas, charges, and estimated timelines]",
   },
   {
-    question: "Can I buy macaroons online?",
+    question: "Can I buy macroons online?",
     answer:
-      "Yes — our macaroons and other bakery products can be ordered directly through this website via the Shop page.",
+      "Yes — our macroons and other bakery products can be ordered directly through this website via the Shop page.",
   },
   {
     question: "What sizes are available?",
@@ -31,7 +31,7 @@ export const faqItems: FAQItem[] = [
       "Our products are currently available in 1kg packs. [CLIENT TO PROVIDE: additional size/weight options if available]",
   },
   {
-    question: "How should macaroons and biscuits be stored?",
+    question: "How should macroons and biscuits be stored?",
     answer: "[CLIENT TO PROVIDE: recommended storage instructions]",
   },
   {

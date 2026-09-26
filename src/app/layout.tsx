@@ -34,11 +34,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "Ganesh Bakery Thoothukudi | Traditional Bakery & Macaroons",
+    default: "Ganesh Bakery Thoothukudi | Traditional Bakery & Macroons",
     template: `%s | ${siteConfig.brandName}`,
   },
   description:
-    "Ganesh Bakery, Shop No. 532, Thoothukudi (Tuticorin) — traditional bakery specialities since 1964. Butter biscuits, ghee biscuits, tea rusk, nutbar and macaroons, freshly baked and available to order online.",
+    "Ganesh Bakery, Shop No. 532, Thoothukudi (Tuticorin) — traditional bakery specialities since 1964. Butter biscuits, ghee biscuits, tea rusk, nutbar and macroons, freshly baked and available to order online.",
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },

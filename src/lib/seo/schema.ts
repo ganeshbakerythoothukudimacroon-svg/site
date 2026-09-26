@@ -89,7 +89,7 @@ export function localBusinessSchema(products: Product[] = []) {
       : {}),
     ...(priceRange && { priceRange }),
     servesCuisine: "Bakery",
-    description: `${siteConfig.brandName}, ${siteConfig.shopBranch} — home of the Thoothukudi Macaroon and a traditional bakery in ${siteConfig.locality} (Tuticorin), baking biscuits, rusk and macaroons since ${siteConfig.since}.`,
+    description: `${siteConfig.brandName}, ${siteConfig.shopBranch} — home of the Thoothukudi Macroons and a traditional bakery in ${siteConfig.locality} (Tuticorin), baking biscuits, rusk and macroons since ${siteConfig.since}.`,
   };
 }
 
