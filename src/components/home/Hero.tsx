@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
+import { getHeritageYears, siteConfig } from "@/lib/site-config";
 
 export function Hero({
   imageUrl,
@@ -11,7 +11,7 @@ export function Hero({
   imageAlt: string;
   imageCaption?: string;
 }) {
-  const heritageYears = Math.floor((new Date().getFullYear() - siteConfig.since) / 10) * 10;
+  const heritageYears = getHeritageYears();
 
   return (
     <section className="relative overflow-hidden">

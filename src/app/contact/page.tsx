@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, MessageCircle, Mail, Clock, FileText } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  MessageCircle,
+  Mail,
+  Clock,
+  FileText,
+} from "lucide-react";
 import { isPlaceholder, pageMetadata } from "@/lib/seo/metadata";
 import { formatAddress, siteConfig } from "@/lib/site-config";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -21,71 +28,89 @@ export default function ContactPage() {
           Contact {siteConfig.brandName}
         </h1>
         <p className="mt-3 text-lg text-[color:var(--text-secondary)]">
-          {siteConfig.brandName} — {siteConfig.shopBranch}, {siteConfig.locality}
+          {siteConfig.brandName} — {siteConfig.shopBranch},{" "}
+          {siteConfig.locality}
         </p>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2">
           <div className="space-y-6">
-          <div className="glass-card space-y-6 rounded-[var(--radius-card)] p-6">
-            <ContactRow icon={MapPin} label="Address">
-              <p className="text-[color:var(--text-primary)]">{formatAddress()}</p>
-              <a
-                href={siteConfig.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 inline-block text-sm font-semibold text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]"
-              >
-                Get Directions →
-              </a>
-            </ContactRow>
+            <div className="glass-card space-y-6 rounded-[var(--radius-card)] p-6">
+              <ContactRow icon={MapPin} label="Address">
+                <p className="text-[color:var(--text-primary)]">
+                  {formatAddress()}
+                </p>
+                <a
+                  href={siteConfig.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block text-sm font-semibold text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]"
+                >
+                  Get Directions →
+                </a>
+              </ContactRow>
 
-            <ContactRow icon={Phone} label="Phone">
-              <p className="text-[color:var(--text-primary)]">
-                {isPlaceholder(siteConfig.phone) ? "[CLIENT TO PROVIDE: phone number]" : siteConfig.phone}
+              <ContactRow icon={Phone} label="Phone">
+                <p className="text-[color:var(--text-primary)]">
+                  {isPlaceholder(siteConfig.phone)
+                    ? "[CLIENT TO PROVIDE: phone number]"
+                    : siteConfig.phone}
+                </p>
+              </ContactRow>
+
+              <ContactRow icon={MessageCircle} label="WhatsApp">
+                <p className="text-[color:var(--text-primary)]">
+                  {isPlaceholder(siteConfig.whatsappNumber) ? (
+                    "[CLIENT TO PROVIDE: WhatsApp number]"
+                  ) : (
+                    <a
+                      href={`https://wa.me/${siteConfig.whatsappNumber}`}
+                      className="hover:text-[color:var(--gold-400)]"
+                    >
+                      +{siteConfig.whatsappNumber}
+                    </a>
+                  )}
+                </p>
+              </ContactRow>
+
+              <ContactRow icon={Mail} label="Email">
+                <p className="text-[color:var(--text-primary)]">
+                  {isPlaceholder(siteConfig.email)
+                    ? "[CLIENT TO PROVIDE: email address]"
+                    : siteConfig.email}
+                </p>
+              </ContactRow>
+
+              <ContactRow icon={Clock} label="Opening Hours">
+                <p className="text-[color:var(--text-primary)]">
+                  {siteConfig.openingHours}
+                </p>
+              </ContactRow>
+
+              <ContactRow icon={FileText} label="GSTIN">
+                <p className="text-[color:var(--text-primary)]">
+                  {siteConfig.gstNumber}
+                </p>
+              </ContactRow>
+            </div>
+
+            <div className="glass-subtle space-y-5 rounded-[var(--radius-card)] p-6">
+              <p className="label-tracked text-[color:var(--text-muted)]">
+                Also Find Us At
               </p>
-            </ContactRow>
-
-            <ContactRow icon={MessageCircle} label="WhatsApp">
-              <p className="text-[color:var(--text-primary)]">
-                {isPlaceholder(siteConfig.whatsappNumber) ? (
-                  "[CLIENT TO PROVIDE: WhatsApp number]"
-                ) : (
-                  <a href={`https://wa.me/${siteConfig.whatsappNumber}`} className="hover:text-[color:var(--gold-400)]">
-                    +{siteConfig.whatsappNumber}
-                  </a>
-                )}
-              </p>
-            </ContactRow>
-
-            <ContactRow icon={Mail} label="Email">
-              <p className="text-[color:var(--text-primary)]">
-                {isPlaceholder(siteConfig.email) ? "[CLIENT TO PROVIDE: email address]" : siteConfig.email}
-              </p>
-            </ContactRow>
-
-            <ContactRow icon={Clock} label="Opening Hours">
-              <p className="text-[color:var(--text-primary)]">{siteConfig.openingHours}</p>
-            </ContactRow>
-
-            <ContactRow icon={FileText} label="GSTIN">
-              <p className="text-[color:var(--text-primary)]">{siteConfig.gstNumber}</p>
-            </ContactRow>
-          </div>
-
-          <div className="glass-subtle space-y-5 rounded-[var(--radius-card)] p-6">
-            <p className="label-tracked text-[color:var(--text-muted)]">Also Find Us At</p>
-            <ContactRow icon={MapPin} label="Second Location">
-              <p className="text-[color:var(--text-primary)]">{siteConfig.secondaryLocation.address}</p>
-            </ContactRow>
-            <ContactRow icon={Phone} label="Phone">
-              <a
-                href={`tel:${siteConfig.secondaryLocation.phoneTel}`}
-                className="text-[color:var(--text-primary)] hover:text-[color:var(--gold-400)]"
-              >
-                {siteConfig.secondaryLocation.phone}
-              </a>
-            </ContactRow>
-          </div>
+              <ContactRow icon={MapPin} label="Second Location">
+                <p className="text-[color:var(--text-primary)]">
+                  {siteConfig.secondaryLocation.address}
+                </p>
+              </ContactRow>
+              <ContactRow icon={Phone} label="Phone">
+                <a
+                  href={`tel:${siteConfig.secondaryLocation.phoneTel}`}
+                  className="text-[color:var(--text-primary)] hover:text-[color:var(--gold-400)]"
+                >
+                  {siteConfig.secondaryLocation.phone}
+                </a>
+              </ContactRow>
+            </div>
           </div>
 
           <ContactForm />

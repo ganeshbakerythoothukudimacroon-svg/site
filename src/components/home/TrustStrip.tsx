@@ -1,8 +1,8 @@
 import { Award, Sparkles, ScrollText, Wheat, Heart, Truck } from "lucide-react";
-import { siteConfig } from "@/lib/site-config";
+import { getHeritageYears } from "@/lib/site-config";
 
 export function TrustStrip() {
-  const heritageYears = Math.floor((new Date().getFullYear() - siteConfig.since) / 10) * 10;
+  const heritageYears = getHeritageYears();
 
   const items = [
     { label: `${heritageYears}+ Years of Heritage`, icon: Award },

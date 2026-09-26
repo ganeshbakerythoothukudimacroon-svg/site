@@ -48,6 +48,11 @@ export const siteConfig = {
   openingHoursSpec: { opens: "09:00", closes: "22:00" },
 } as const;
 
+/** Whole years since the bakery was founded — shown as e.g. "62+ Years of Heritage". */
+export function getHeritageYears() {
+  return new Date().getFullYear() - siteConfig.since;
+}
+
 export function formatAddress() {
   const a = siteConfig.address;
   return `${a.line1}, ${a.line2}, ${a.city}, ${a.state} – ${a.postalCode}`;

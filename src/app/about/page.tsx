@@ -28,9 +28,8 @@ export default function AboutPage() {
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Who We Are</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
             {siteConfig.brandName} is a family bakery name that has stood in {siteConfig.locality} since{" "}
-            {siteConfig.since}. {siteConfig.shopBranch} is one part of that family heritage — an independent
-            bakery carrying the {siteConfig.brandName} name forward with its own shop, its own bakers, and its
-            own day-to-day craft.
+            {siteConfig.since}. {siteConfig.shopBranch} is our main bakery and shop, carrying that family name
+            and heritage forward with our own bakers and our own day-to-day craft.
           </p>
         </section>
 
@@ -108,11 +107,15 @@ export default function AboutPage() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">{siteConfig.shopBranch}</h2>
+          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Where to Find Us</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            {siteConfig.shopBranch} is our own independent bakery and shop in {siteConfig.locality}. It is
-            distinct from other Ganesh Bakery family locations, while sharing the same family name and baking
-            heritage.
+            {siteConfig.shopBranch} is our main bakery and shop in {siteConfig.locality}, at{" "}
+            {siteConfig.address.line1}, {siteConfig.address.line2}. You can also find us at our second location,{" "}
+            {siteConfig.secondaryLocation.address}. Full details for both are on our{" "}
+            <Link href="/contact" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
+              Contact page
+            </Link>
+            .
           </p>
         </section>
 
