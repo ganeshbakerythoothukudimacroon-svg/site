@@ -61,6 +61,8 @@ export class WooCommerceApiError extends Error {
  * fetch product/category data at build time. 4xx responses (real request
  * errors) are never retried.
  */
+export const WOOCOMMERCE_CACHE_TAG = "woocommerce";
+
 export async function wcFetch<T>(
   path: string,
   params: Record<string, string | number | undefined> = {},
@@ -87,8 +89,9 @@ export async function wcFetch<T>(
         },
         signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
         // Product/category data changes rarely; revalidate periodically rather
-        // than on every request.
-        next: { revalidate: 300, ...(init as { next?: { revalidate?: number } })?.next },
+        // than on every request. Tagged so /api/revalidate (called by a
+        // WooCommerce webhook) can purge it instantly when a product changes.
+        next: { revalidate: 300, tags: [WOOCOMMERCE_CACHE_TAG], ...(init as { next?: { revalidate?: number } })?.next },
       });
 
       if (!res.ok) {
