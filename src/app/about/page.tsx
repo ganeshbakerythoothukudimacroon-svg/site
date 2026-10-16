@@ -1,4 +1,5 @@
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { HeritageTimeline } from "@/components/shared/HeritageTimeline";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
@@ -87,6 +88,11 @@ export default function AboutPage() {
             Katteri Raj, carried it forward after him. Today, we continue the family&apos;s work at{" "}
             {siteConfig.shopBranch} — three generations of the same family.
           </p>
+        </section>
+
+        <section id="timeline" className="mt-10 scroll-mt-24">
+          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Journey</h2>
+          <HeritageTimeline />
         </section>
 
         <section id="press" className="mt-10 scroll-mt-24">
