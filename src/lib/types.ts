@@ -18,6 +18,15 @@ export interface ProductAttribute {
   value: string;
 }
 
+/** One size of a variable product (e.g. "¼ kg"), with its own price. */
+export interface ProductVariation {
+  id: number;
+  label: string;
+  price: number | null;
+  regularPrice: number | null;
+  inStock: boolean;
+}
+
 export interface Product {
   id: number;
   slug: string;
@@ -40,11 +49,16 @@ export interface Product {
   /** Custom WooCommerce product attributes (Ingredients, Shelf Life, Storage,
    *  Allergens, …) — edited in wp-admin, not hardcoded here. */
   attributes: ProductAttribute[];
+  /** Sizes to choose from, cheapest first. Empty for a simple (single-size)
+   *  product, in which case `price` is the price. */
+  variations: ProductVariation[];
 }
 
 export interface CartLineItem {
   key: string;
   productId: number;
+  /** Set when a size was chosen; WooCommerce prices the order by this. */
+  variationId?: number;
   slug: string;
   name: string;
   image: ProductImage | null;
@@ -128,6 +142,7 @@ export interface ShippingAddress {
 
 export interface CheckoutLineItem {
   productId: number;
+  variationId?: number;
   quantity: number;
 }
 

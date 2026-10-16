@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Plus, Check } from "lucide-react";
 import { useCart } from "@/components/cart/CartContext";
@@ -22,6 +23,7 @@ export function AddToCartButton({
   const [justAdded, setJustAdded] = useState(false);
 
   const unavailable = product.price === null || !product.inStock;
+  const needsSize = product.variations.length > 0;
 
   function handleAdd() {
     if (unavailable) return;
@@ -35,6 +37,25 @@ export function AddToCartButton({
     });
     setJustAdded(true);
     window.setTimeout(() => setJustAdded(false), 1500);
+  }
+
+  if (needsSize && !unavailable) {
+    return variant === "icon" ? (
+      <Link
+        href={`/product/${product.slug}`}
+        aria-label={`Choose a size for ${product.name}`}
+        className={`glow-gold-hover flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[color:var(--gold-500)] to-[color:var(--gold-600)] text-[color:var(--bg-void)] transition-transform ${className ?? ""}`}
+      >
+        <Plus className="h-4 w-4" />
+      </Link>
+    ) : (
+      <Link
+        href={`/product/${product.slug}`}
+        className={`${full ? "w-full" : ""} glow-gold-hover inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-4 py-2.5 text-sm font-semibold text-[color:var(--bg-void)] transition-transform ${className ?? ""}`}
+      >
+        Choose Size
+      </Link>
+    );
   }
 
   if (variant === "icon") {

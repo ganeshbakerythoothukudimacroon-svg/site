@@ -1,5 +1,5 @@
-import type { Category, Customer, Order, Product, ProductImage } from "@/lib/types";
-import type { WCCategory, WCImage, WCProduct } from "./raw-types";
+import type { Category, Customer, Order, Product, ProductImage, ProductVariation } from "@/lib/types";
+import type { WCCategory, WCImage, WCProduct, WCVariation } from "./raw-types";
 import type { WCOrder } from "./order-raw-types";
 import type { WCCustomer } from "./customer-raw-types";
 import { splitProductName } from "@/lib/product-name";
@@ -51,7 +51,21 @@ export function mapCategory(raw: WCCategory): Category {
   };
 }
 
-export function mapProduct(raw: WCProduct, categoriesById: Map<number, Category>): Product {
+function mapVariation(raw: WCVariation): ProductVariation {
+  return {
+    id: raw.id,
+    label: raw.attributes.map((a) => a.option).join(" / ") || `Option ${raw.id}`,
+    price: toNumberOrNull(raw.price),
+    regularPrice: toNumberOrNull(raw.regular_price),
+    inStock: raw.stock_status === "instock",
+  };
+}
+
+export function mapProduct(
+  raw: WCProduct,
+  categoriesById: Map<number, Category>,
+  rawVariations: WCVariation[] = []
+): Product {
   const price = toNumberOrNull(raw.price);
   const regularPrice = toNumberOrNull(raw.regular_price);
 
@@ -90,9 +104,15 @@ export function mapProduct(raw: WCProduct, categoriesById: Map<number, Category>
     featured: raw.featured,
     averageRating: raw.rating_count > 0 ? toNumberOrNull(raw.average_rating) : null,
     reviewCount: raw.rating_count,
+    // Size attributes (variation: true) drive the size picker, not the
+    // Ingredients/Shelf Life/… facts box.
     attributes: (raw.attributes || [])
-      .filter((a) => a.options?.length)
+      .filter((a) => a.options?.length && !a.variation)
       .map((a) => ({ name: a.name, value: a.options.join(", ") })),
+    variations: rawVariations
+      .filter((v) => v.status === "publish")
+      .map(mapVariation)
+      .sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity)),
   };
 }
 

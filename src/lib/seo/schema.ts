@@ -117,6 +117,7 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
 }
 
 export function productSchema(product: Product, path: string) {
+  const sizedPrices = product.variations.map((v) => v.price).filter((p): p is number => p !== null);
   const availability =
     product.price === null
       ? undefined
@@ -133,7 +134,20 @@ export function productSchema(product: Product, path: string) {
     sku: product.sku || undefined,
     image: product.images.map((img) => img.url),
     brand: { "@type": "Brand", name: siteConfig.brandName },
-    ...(product.price !== null && {
+    ...(sizedPrices.length > 0 && {
+      offers: {
+        "@type": "AggregateOffer",
+        url: absoluteUrl(path),
+        priceCurrency: product.currency,
+        lowPrice: Math.min(...sizedPrices),
+        highPrice: Math.max(...sizedPrices),
+        offerCount: sizedPrices.length,
+        ...(availability && { availability }),
+        seller: { "@id": ORG_ID() },
+      },
+    }),
+    ...(sizedPrices.length === 0 &&
+      product.price !== null && {
       offers: {
         "@type": "Offer",
         url: absoluteUrl(path),

@@ -1,5 +1,6 @@
 "use client";
 
+import { MinOrderNotice, meetsMinOrder } from "@/components/cart/MinOrderNotice";
 import Link from "next/link";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
@@ -88,7 +89,7 @@ export function CheckoutForm() {
         state: data.state,
         pincode: data.pincode,
       },
-      items: items.map((item) => ({ productId: item.productId, quantity: item.quantity })),
+      items: items.map((item) => ({ productId: item.productId, variationId: item.variationId, quantity: item.quantity })),
     };
 
     try {
@@ -245,10 +246,11 @@ export function CheckoutForm() {
             .
           </span>
         </label>
+        {!meetsMinOrder(subtotal) && <MinOrderNotice subtotal={subtotal} />}
         {error && <p className="text-sm text-red-400">{error}</p>}
         <button
           type="submit"
-          disabled={status === "loading" || status === "paying" || !razorpayReady}
+          disabled={status === "loading" || status === "paying" || !razorpayReady || !meetsMinOrder(subtotal)}
           className="glow-gold-hover flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)] disabled:opacity-60"
         >
           {status === "loading" ? "Placing Order…" : status === "paying" ? "Waiting for Payment…" : "Pay & Place Order"}
@@ -270,8 +272,12 @@ export function CheckoutForm() {
             </li>
           ))}
         </ul>
-        <div className="mt-4 flex justify-between border-t border-[color:var(--glass-border)] pt-4 font-semibold">
-          <span className="text-[color:var(--text-primary)]">Subtotal</span>
+        <div className="mt-4 flex justify-between border-t border-[color:var(--glass-border)] pt-4 text-sm text-[color:var(--text-secondary)]">
+          <span>Delivery</span>
+          <span className="font-semibold text-[color:var(--gold-300)]">Free</span>
+        </div>
+        <div className="mt-2 flex justify-between font-semibold">
+          <span className="text-[color:var(--text-primary)]">Total</span>
           <span className="text-gradient-gold">{inr.format(subtotal)}</span>
         </div>
       </div>

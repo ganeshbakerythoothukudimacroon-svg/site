@@ -37,7 +37,8 @@ export default function TermsPage() {
               Orders &amp; Pricing
             </h2>
             <p className="mt-2">
-              Prices shown are in Indian Rupees (₹) and may change without prior notice. Placing an order
+              Prices shown are in Indian Rupees (₹) and may change without prior notice. The minimum order value
+              is ₹{siteConfig.minOrderValue.toLocaleString("en-IN")}, and delivery is free on every order. Placing an order
               through this website is an offer to purchase, which we confirm directly with you before it is
               finalised.
             </p>

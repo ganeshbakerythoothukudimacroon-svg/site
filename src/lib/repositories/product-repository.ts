@@ -1,7 +1,7 @@
 import "server-only";
 import { REAL_CATEGORY_IDS, WooCommerceApiError, wcFetch } from "@/lib/woocommerce/client";
 import { mapCategory, mapProduct } from "@/lib/woocommerce/mappers";
-import type { WCCategory, WCProduct } from "@/lib/woocommerce/raw-types";
+import type { WCCategory, WCProduct, WCVariation } from "@/lib/woocommerce/raw-types";
 import type { Category, Product } from "@/lib/types";
 
 async function fetchCategoriesById(): Promise<Map<number, Category>> {
@@ -24,6 +24,12 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
   return categories.find((c) => c.slug === slug) ?? null;
 }
 
+/** Variable products (¼ kg / ½ kg / 1 kg) need their sizes fetched separately. */
+async function withVariations(raw: WCProduct): Promise<WCVariation[]> {
+  if (raw.type !== "variable") return [];
+  return wcFetch<WCVariation[]>(`products/${raw.id}/variations`, { per_page: 20 });
+}
+
 export async function getAllProducts(): Promise<Product[]> {
   const [categoriesById, rawProducts] = await Promise.all([
     fetchCategoriesById(),
@@ -33,7 +39,8 @@ export async function getAllProducts(): Promise<Product[]> {
       status: "publish",
     }),
   ]);
-  return rawProducts.map((p) => mapProduct(p, categoriesById));
+  const variations = await Promise.all(rawProducts.map(withVariations));
+  return rawProducts.map((p, i) => mapProduct(p, categoriesById, variations[i]));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -58,7 +65,12 @@ export async function getProductById(id: number): Promise<Product | null> {
       fetchCategoriesById(),
       wcFetch<WCProduct>(`products/${id}`),
     ]);
-    return mapProduct(raw, categoriesById);
+    // Checkout verifies prices with this — always fetch sizes fresh.
+    const variations =
+      raw.type === "variable"
+        ? await wcFetch<WCVariation[]>(`products/${raw.id}/variations`, { per_page: 20 }, { next: { revalidate: 0 } })
+        : [];
+    return mapProduct(raw, categoriesById, variations);
   } catch (err) {
     if (err instanceof WooCommerceApiError && err.status === 404) return null;
     throw err;

@@ -5,7 +5,8 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export const metadata: Metadata = pageMetadata({
   title: "Shipping Policy | Ganesh Bakery",
-  description: "Shipping and delivery information for orders from Ganesh Bakery, Shop No. 532, Thoothukudi.",
+  description:
+    "Free delivery across India on every order from Ganesh Bakery, Shop No. 532, Thoothukudi — minimum order ₹1,000. Delivery areas, timelines and packaging.",
   path: "/shipping-policy",
 });
 
@@ -35,13 +36,17 @@ export default function ShippingPolicyPage() {
 
           <section>
             <h2 className="font-display text-xl font-semibold text-[color:var(--text-primary)]">
-              Shipping Charges &amp; Timelines
+              Free Delivery &amp; Timelines
             </h2>
+            <p className="glass-subtle mt-3 rounded-2xl p-4 text-[color:var(--text-primary)]">
+              Delivery is <strong className="text-[color:var(--gold-300)]">free on every order</strong>, anywhere we
+              deliver in India. The minimum order value is ₹{siteConfig.minOrderValue.toLocaleString("en-IN")}.
+            </p>
             <div className="mt-3 space-y-2.5">
               {[
-                { area: `${siteConfig.locality} (local)`, time: "Same-day / next-day for orders placed before 2 PM", charge: "₹40" },
-                { area: "Rest of Tamil Nadu", time: "2–4 business days", charge: "₹80" },
-                { area: "Other states", time: "4–7 business days", charge: "₹120" },
+                { area: `${siteConfig.locality} (local)`, time: "Same-day / next-day for orders placed before 2 PM", charge: "Free" },
+                { area: "Rest of Tamil Nadu", time: "2–4 business days", charge: "Free" },
+                { area: "Other states", time: "4–7 business days", charge: "Free" },
               ].map((row) => (
                 <div
                   key={row.area}
@@ -56,9 +61,8 @@ export default function ShippingPolicyPage() {
               ))}
             </div>
             <ul className="mt-4 list-disc space-y-1.5 pl-5">
-              <li>Free shipping on orders above ₹2,999.</li>
               <li>Orders are processed within 1 business day before dispatch.</li>
-              <li>Remote areas may need additional delivery time or charges.</li>
+              <li>Remote areas may need additional delivery time.</li>
               <li>Delivery for a few perishable items may depend on destination and shelf life.</li>
             </ul>
           </section>

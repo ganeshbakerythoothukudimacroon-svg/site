@@ -10,7 +10,9 @@ import {
 } from "react";
 import type { CartLineItem, ProductImage } from "@/lib/types";
 
-const STORAGE_KEY = "ganeshbakery-cart-v1";
+// v2: line items carry a size (variationId). Carts saved under v1 predate
+// sizes and can't be checked out, so they're simply not loaded.
+const STORAGE_KEY = "ganeshbakery-cart-v2";
 
 interface CartContextValue {
   items: CartLineItem[];
@@ -21,6 +23,7 @@ interface CartContextValue {
   closeCart: () => void;
   addItem: (item: {
     productId: number;
+    variationId?: number;
     slug: string;
     name: string;
     image: ProductImage | null;
@@ -65,7 +68,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addItem: CartContextValue["addItem"] = useCallback((newItem) => {
     setItems((prev) => {
-      const key = String(newItem.productId);
+      const key = newItem.variationId ? `${newItem.productId}-${newItem.variationId}` : String(newItem.productId);
       const existing = prev.find((i) => i.key === key);
       const quantity = newItem.quantity ?? 1;
       if (existing) {
@@ -80,6 +83,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         {
           key,
           productId: newItem.productId,
+          variationId: newItem.variationId,
           slug: newItem.slug,
           name: newItem.name,
           image: newItem.image,

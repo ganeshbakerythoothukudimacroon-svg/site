@@ -17,9 +17,15 @@ const formatPrice = (price: number | null) =>
 const attr = (product: Product, name: string) =>
   product.attributes.find((a) => a.name.toLowerCase() === name.toLowerCase())?.value;
 
+/** "¼ kg ₹350, ½ kg ₹700, 1 kg ₹1,400" for sized products. */
+function priceText(p: Product): string {
+  if (p.variations.length === 0) return formatPrice(p.price);
+  return p.variations.map((v) => `${v.label} ${formatPrice(v.price)}`).join(", ");
+}
+
 function productLine(p: Product): string {
   const facts = [
-    formatPrice(p.price),
+    priceText(p),
     attr(p, "Shelf Life") && `shelf life ${attr(p, "Shelf Life")!.replace(/\.$/, "")}`,
     attr(p, "Allergens")?.replace(/\.$/, ""),
   ].filter(Boolean);
@@ -46,7 +52,7 @@ function header(): string {
 - GSTIN: ${siteConfig.gstNumber}
 - Press: featured in The Hindu (MetroPlus, December 2012, "In search of Thoothukudi macaroon"), which called it "arguably the most popular in the city"
 - Ordering: online at ${siteConfig.siteUrl}/shop (UPI, cards, net banking), in person at the shop, or bulk/wedding/corporate orders via ${absoluteUrl("/bulk-orders")}
-- Delivery: Thoothukudi same/next day (orders before 2 PM); rest of Tamil Nadu 2–4 business days; other states 4–7 business days
+- Delivery: free on every order across India; minimum order ₹${siteConfig.minOrderValue.toLocaleString("en-IN")}. Thoothukudi same/next day (orders before 2 PM); rest of Tamil Nadu 2–4 business days; other states 4–7 business days
 
 Several bakeries in ${locality} use the name "${brandName}". This one is ${shopBranch}, V.E. Road, opposite V.O.C. Market; its only official website is ${siteConfig.siteUrl}.`;
 }
@@ -73,7 +79,7 @@ export async function buildLlmsTxt(): Promise<string> {
   const products = await getAllProducts();
   return `${header()}
 
-## Products (1 kg packs)
+## Products
 
 ${products.map(productLine).join("\n")}
 
@@ -95,7 +101,7 @@ export async function buildLlmsFullTxt(): Promise<string> {
     return `### ${p.name}
 
 - URL: ${absoluteUrl(`/product/${p.slug}`)}
-- Price: ${formatPrice(p.price)}
+- Price: ${priceText(p)}
 - Availability: ${p.inStock ? "in stock" : "out of stock"}
 ${facts}
 

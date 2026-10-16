@@ -1,5 +1,6 @@
 "use client";
 
+import { MinOrderNotice, meetsMinOrder } from "@/components/cart/MinOrderNotice";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -141,14 +142,22 @@ export function CartDrawer() {
                 <span className="text-[color:var(--text-primary)]">Subtotal</span>
                 <span className="text-gradient-gold text-lg font-bold">{inr.format(subtotal)}</span>
               </div>
-              <p className="mb-4 text-xs text-[color:var(--text-muted)]">Shipping and taxes calculated at checkout.</p>
-              <Link
-                href="/checkout"
-                onClick={closeCart}
-                className="glow-gold-hover flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)]"
-              >
-                Proceed to Checkout
-              </Link>
+              <div className="mb-4">
+                <MinOrderNotice subtotal={subtotal} />
+              </div>
+              {meetsMinOrder(subtotal) ? (
+                <Link
+                  href="/checkout"
+                  onClick={closeCart}
+                  className="glow-gold-hover flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)]"
+                >
+                  Proceed to Checkout
+                </Link>
+              ) : (
+                <span aria-disabled="true" className="flex w-full cursor-not-allowed items-center justify-center rounded-full bg-[color:var(--glass-bg-3)] px-5 py-3 text-sm font-semibold text-[color:var(--text-muted)]">
+                  Proceed to Checkout
+                </span>
+              )}
               <Link
                 href="/cart"
                 onClick={closeCart}

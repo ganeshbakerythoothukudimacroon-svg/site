@@ -97,7 +97,7 @@ export default async function ThoothukudiMacroonsPage() {
                 <p className="font-medium text-[color:var(--text-primary)]">
                   {product.name} {product.weightLabel && `(${product.weightLabel})`}
                 </p>
-                <PriceTag price={product.price} regularPrice={product.regularPrice} />
+                <PriceTag price={product.price} regularPrice={product.variations.length > 0 ? null : product.regularPrice} from={product.variations.length > 1} />
               </div>
               <AddToCartButton product={product} />
               <Link href={`/product/${product.slug}`} className="text-sm font-semibold text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">

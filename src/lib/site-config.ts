@@ -46,6 +46,10 @@ export const siteConfig = {
   facebookUrl: "https://facebook.com/",
   googleBusinessUrl: "https://business.google.com/",
 
+  // Orders below this (₹, product subtotal) can't be placed — enforced in
+  // checkout-service as well as the cart UI. Delivery is free on every order.
+  minOrderValue: 1000,
+
   // Confirmed by client: open daily, 9 AM – 10 PM.
   openingHours: "9:00 AM – 10:00 PM, daily",
   openingHoursSpec: { opens: "09:00", closes: "22:00" },

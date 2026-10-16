@@ -24,7 +24,7 @@ export const faqItems: FAQItem[] = [
   {
     question: `Which products can I order from ${siteConfig.brandName} Thoothukudi?`,
     answer:
-      "Thoothukudi macroons, nutbar, tea rusk, butter biscuits and ghee biscuits, each in 1 kg packs. All of them can be ordered on this website or bought at our shop.",
+      "Thoothukudi macroons, nutbar, tea rusk, butter biscuits and ghee biscuits, in a choice of pack sizes. All of them can be ordered on this website or bought at our shop.",
   },
   {
     question: "Can I buy macroons online?",
@@ -34,7 +34,11 @@ export const faqItems: FAQItem[] = [
   {
     question: "Do you deliver bakery products?",
     answer:
-      "Yes. Within Thoothukudi we deliver same day or next day for orders placed before 2 PM. Elsewhere in Tamil Nadu delivery takes 2–4 business days, and other states 4–7 business days. Charges and details are on our Shipping Policy page.",
+      "Yes — delivery is free on every order across India. Within Thoothukudi we deliver same day or next day for orders placed before 2 PM. Elsewhere in Tamil Nadu delivery takes 2–4 business days, and other states 4–7 business days. Details are on our Shipping Policy page.",
+  },
+  {
+    question: "Is there a minimum order value?",
+    answer: `Yes — the minimum order is ₹${siteConfig.minOrderValue.toLocaleString("en-IN")}, and delivery is free on every order. You can mix any products and sizes to reach it.`,
   },
   {
     question: "Do you deliver Tuticorin macaroons outside Tamil Nadu?",
@@ -43,7 +47,8 @@ export const faqItems: FAQItem[] = [
   },
   {
     question: "What sizes are available?",
-    answer: "Our products are currently available in 1 kg packs. For larger quantities, see our Bulk Orders page.",
+    answer:
+      "Choose your pack size on each product page — the sizes and prices shown there are always current. For larger quantities, see our Bulk Orders page.",
   },
   {
     question: "How should macroons and biscuits be stored?",

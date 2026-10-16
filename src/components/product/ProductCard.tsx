@@ -58,7 +58,11 @@ export function ProductCard({ product }: { product: Product }) {
         )}
         <RatingStars rating={product.averageRating} reviewCount={product.reviewCount} />
         <div className="mt-auto flex items-center justify-between gap-3 pt-2">
-          <PriceTag price={product.price} regularPrice={product.regularPrice} />
+          <PriceTag
+            price={product.price}
+            regularPrice={product.variations.length > 0 ? null : product.regularPrice}
+            from={product.variations.length > 1}
+          />
           <AddToCartButton product={product} variant="icon" />
         </div>
       </div>

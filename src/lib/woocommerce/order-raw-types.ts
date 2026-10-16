@@ -30,7 +30,7 @@ export interface WCOrderCreatePayload {
   set_paid: boolean;
   billing: WCAddress;
   shipping: Omit<WCAddress, "phone" | "email">;
-  line_items: { product_id: number; quantity: number }[];
+  line_items: { product_id: number; variation_id?: number; quantity: number }[];
   customer_note?: string;
 }
 

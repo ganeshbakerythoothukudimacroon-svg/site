@@ -91,7 +91,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <RatingStars rating={product.averageRating} reviewCount={product.reviewCount} />
             </div>
             <div className="mt-4">
-              <PriceTag price={product.price} regularPrice={product.regularPrice} size="lg" />
+              <PriceTag
+                price={product.price}
+                regularPrice={product.variations.length > 0 ? null : product.regularPrice}
+                size="lg"
+                from={product.variations.length > 1}
+              />
             </div>
             {product.shortDescription && (
               <p className="mt-4 text-base text-[color:var(--text-secondary)] text-pretty">{product.shortDescription}</p>

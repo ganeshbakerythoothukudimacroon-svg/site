@@ -28,8 +28,18 @@ export interface WCAttribute {
   options: string[];
 }
 
+export interface WCVariation {
+  id: number;
+  price: string;
+  regular_price: string;
+  stock_status: "instock" | "outofstock" | "onbackorder";
+  status: string;
+  attributes: { name: string; option: string }[];
+}
+
 export interface WCProduct {
   id: number;
+  type: "simple" | "variable" | string;
   name: string;
   slug: string;
   sku: string;
