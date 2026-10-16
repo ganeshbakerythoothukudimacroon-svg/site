@@ -16,9 +16,11 @@ import { RelatedProducts } from "@/components/product/RelatedProducts";
 // Ingredients/Shelf Life/Storage/Allergens are read from each product's
 // WooCommerce custom attributes (wp-admin → Products → edit product →
 // Attributes) rather than hardcoded here, so the client can update them
-// without a code deploy. Falls back to a "[CLIENT TO PROVIDE]" placeholder
-// when an attribute hasn't been set — getting food-safety facts wrong on a
+// without a code deploy. A fact whose attribute hasn't been set is left out
+// entirely rather than guessed at — getting food-safety facts wrong on a
 // live site is a real risk, not just a copy nicety.
+const PRODUCT_FACT_LABELS = ["Ingredients", "Shelf Life", "Storage", "Allergens"] as const;
+
 function findAttribute(product: Product, name: string): string | null {
   return product.attributes.find((a) => a.name.toLowerCase() === name.toLowerCase())?.value ?? null;
 }
@@ -54,6 +56,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const related = await getRelatedProducts(product);
   const category = product.categories[0];
+  const productFacts = PRODUCT_FACT_LABELS.flatMap((label) => {
+    const value = findAttribute(product, label)?.trim();
+    return value ? [{ label, value }] : [];
+  });
 
   return (
     <>
@@ -89,24 +95,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <ProductPurchasePanel product={product} />
             </div>
 
-            <dl className="glass-card mt-8 grid grid-cols-2 gap-5 rounded-[var(--radius-card)] p-5 text-sm">
-              <div>
-                <dt className="font-medium text-[color:var(--gold-400)]">Ingredients</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Ingredients") ?? "[CLIENT TO PROVIDE: verified ingredient list]"}</dd>
-              </div>
-              <div>
-                <dt className="font-medium text-[color:var(--gold-400)]">Shelf Life</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Shelf Life") ?? "[CLIENT TO PROVIDE: verified shelf life]"}</dd>
-              </div>
-              <div>
-                <dt className="font-medium text-[color:var(--gold-400)]">Storage</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Storage") ?? "[CLIENT TO PROVIDE: storage instructions]"}</dd>
-              </div>
-              <div>
-                <dt className="font-medium text-[color:var(--gold-400)]">Allergens</dt>
-                <dd className="mt-1 text-[color:var(--text-muted)]">{findAttribute(product, "Allergens") ?? "[CLIENT TO PROVIDE: verified allergen information]"}</dd>
-              </div>
-            </dl>
+            {productFacts.length > 0 && (
+              <dl className="glass-card mt-8 grid grid-cols-2 gap-5 rounded-[var(--radius-card)] p-5 text-sm">
+                {productFacts.map((fact) => (
+                  <div key={fact.label}>
+                    <dt className="font-medium text-[color:var(--gold-400)]">{fact.label}</dt>
+                    <dd className="mt-1 text-[color:var(--text-muted)]">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
 
             <p className="mt-6 text-sm text-[color:var(--text-muted)]">
               See our{" "}

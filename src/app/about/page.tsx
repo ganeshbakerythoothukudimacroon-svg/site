@@ -89,6 +89,40 @@ export default function AboutPage() {
           </p>
         </section>
 
+        <section id="press" className="mt-10 scroll-mt-24">
+          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Featured in The Hindu</h2>
+          <figure className="glass-subtle mt-4 rounded-2xl p-5">
+            <blockquote className="font-display text-lg text-[color:var(--text-primary)] text-pretty">
+              &ldquo;What matters as much as quality is the way you present the product.&rdquo;
+            </blockquote>
+            <figcaption className="mt-2 text-sm text-[color:var(--text-muted)]">
+              — Shri K. Dharmalingam, speaking to The Hindu
+            </figcaption>
+          </figure>
+          <p className="mt-4 text-[color:var(--text-secondary)] text-pretty">
+            In December 2012, Olympia Shilpa Gerald of The Hindu&apos;s MetroPlus went in search of the Thoothukudi
+            macaroon and stopped at {siteConfig.brandName}, describing it as &ldquo;arguably the most popular in
+            the city&rdquo;, with crowds at the counter at any time of the day. Our founder shared his view of the
+            macaroon&apos;s roots in the port town&apos;s Dutch and Portuguese past, and the article watched our
+            bakers whisk egg whites, fold in cashew and pipe each cone by hand, baking in both traditional
+            firewood and modern ovens to keep up with demand.
+          </p>
+          <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+            Even then, our macaroons were handed over gift-wrapped — a tradition of care in presentation that we
+            still follow today.
+          </p>
+          <p className="mt-3 text-sm">
+            <a
+              href="https://www.thehindu.com/features/metroplus/Food/in-search-of-thoothukudi-macaroon/article4170768.ece"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]"
+            >
+              Read &ldquo;In search of Thoothukudi macaroon&rdquo; on The Hindu &rarr;
+            </a>
+          </p>
+        </section>
+
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Products &amp; Food Information</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">

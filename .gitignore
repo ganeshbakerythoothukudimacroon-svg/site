@@ -43,3 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Client KYC/registration documents (Aadhaar, PAN, licences) — never commit
+/docs/
