@@ -11,6 +11,14 @@ const ORG_ID = () => absoluteUrl("/#organization");
 const WEBSITE_ID = () => absoluteUrl("/#website");
 const BAKERY_ID = () => absoluteUrl("/#bakery");
 
+/** "Ganesh Bakery Thoothukudi", "Ganesh Bakery Tuty", … plus the shop number. */
+function brandAlternateNames(): string[] {
+  return [
+    ...siteConfig.localityVariants.map((city) => `${siteConfig.brandName} ${city}`),
+    `${siteConfig.brandName} ${siteConfig.shopBranch}`,
+  ];
+}
+
 export function organizationSchema() {
   const sameAs = [siteConfig.instagramUrl, siteConfig.facebookUrl, siteConfig.googleBusinessUrl].filter(
     isRealProfileUrl
@@ -21,6 +29,7 @@ export function organizationSchema() {
     "@type": "Organization",
     "@id": ORG_ID(),
     name: siteConfig.brandName,
+    alternateName: brandAlternateNames(),
     legalName: siteConfig.legalName,
     url: siteConfig.siteUrl,
     logo: absoluteUrl("/brand/emblem.png"),
@@ -53,6 +62,7 @@ export function localBusinessSchema(products: Product[] = []) {
     "@type": "Bakery",
     "@id": BAKERY_ID(),
     name: `${siteConfig.brandName} — ${siteConfig.shopBranch}`,
+    alternateName: brandAlternateNames(),
     legalName: siteConfig.legalName,
     url: siteConfig.siteUrl,
     logo: absoluteUrl("/brand/emblem.png"),
@@ -66,7 +76,7 @@ export function localBusinessSchema(products: Product[] = []) {
       postalCode: siteConfig.address.postalCode,
       addressCountry: siteConfig.address.country,
     },
-    areaServed: [siteConfig.locality, siteConfig.localityAlias, siteConfig.address.state, "India"],
+    areaServed: [...siteConfig.localityVariants, siteConfig.address.state, "India"],
     geo: { "@type": "GeoCoordinates", latitude: siteConfig.geo.lat, longitude: siteConfig.geo.lng },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",

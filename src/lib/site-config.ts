@@ -10,6 +10,9 @@ export const siteConfig = {
   since: 1964,
   locality: "Thoothukudi",
   localityAlias: "Tuticorin",
+  // Every other way people write the city — used in structured data so a
+  // search for "ganesh bakery tuty" or "thoothukkudi" still matches us.
+  localityVariants: ["Thoothukudi", "Tuticorin", "Tuty", "Thoothukkudi", "Thuthukudi"],
 
   address: {
     line1: "532, V.E. Road",

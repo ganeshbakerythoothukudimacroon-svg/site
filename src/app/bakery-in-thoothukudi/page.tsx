@@ -5,13 +5,14 @@ import { getCategories, getFeaturedProducts } from "@/lib/services/product-servi
 import { pageMetadata } from "@/lib/seo/metadata";
 import { localBusinessSchema } from "@/lib/seo/schema";
 import { formatAddress, siteConfig } from "@/lib/site-config";
+import { splitProductName } from "@/lib/product-name";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Bakery in Thoothukudi | Ganesh Bakery Shop 532",
+  title: "Bakery in Thoothukudi (Tuticorin) | Ganesh Bakery Shop No. 532",
   description:
-    "Looking for a bakery in Thoothukudi (Tuticorin)? Ganesh Bakery, Shop No. 532 bakes traditional biscuits, rusk and macroons since 1964 — visit us or order online.",
+    "Looking for a bakery in Thoothukudi, Tuticorin or Tuty? Ganesh Bakery, Shop No. 532, V.E. Road has baked macroons, nutbar, tea rusk, butter and ghee biscuits since 1964 — visit us or order online.",
   path: "/bakery-in-thoothukudi",
 });
 
@@ -28,9 +29,9 @@ export default async function BakeryInThoothukudiPage() {
           Looking for a Bakery in Thoothukudi?
         </h1>
         <p className="mt-4 text-lg text-[color:var(--text-secondary)] text-pretty">
-          {siteConfig.brandName}, {siteConfig.shopBranch} has been baking in {siteConfig.locality} (Tuticorin)
-          since {siteConfig.since} — traditional biscuits, rusk, nutbar and macroons, made the way they always
-          have been.
+          {siteConfig.brandName}, {siteConfig.shopBranch} has been baking in {siteConfig.locality} — Tuticorin,
+          or Tuty to locals — since {siteConfig.since}: traditional biscuits, rusk, nutbar and macroons, made the
+          way they always have been, at our shop on V.E. Road opposite V.O.C. Market.
         </p>
 
         <section className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -89,6 +90,23 @@ export default async function BakeryInThoothukudiPage() {
               </li>
             ))}
           </ul>
+          {products.length > 0 && (
+            <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+              {products.map((product) => (
+                <li key={product.id}>
+                  <Link
+                    href={`/product/${product.slug}`}
+                    className="glass-subtle flex items-center justify-between rounded-2xl px-4 py-3 text-[color:var(--text-secondary)] transition-colors hover:text-[color:var(--gold-300)]"
+                  >
+                    <span>
+                      {splitProductName(product.name).baseName} in {siteConfig.locality}
+                    </span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-[color:var(--gold-400)]" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
           <p className="mt-4">
             <Link href="/thoothukudi-macroons" className="font-semibold text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
               Read more about our Thoothukudi macroons →

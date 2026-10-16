@@ -9,13 +9,30 @@ function toNumberOrNull(value: string): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/&nbsp;/g, " ")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+}
+
 function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#8217;/g, "’")
+  return decodeEntities(html.replace(/<[^>]+>/g, " "))
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/** Like stripHtml, but keeps paragraph breaks as blank lines so long product
+ *  descriptions written in wp-admin render as separate paragraphs. */
+function stripHtmlKeepParagraphs(html: string): string {
+  return html
+    .split(/<\/p>|<br\s*\/?>\s*<br\s*\/?>|\n\s*\n/i)
+    .map(stripHtml)
+    .filter(Boolean)
+    .join("\n\n");
 }
 
 function mapImage(image: WCImage): ProductImage {
@@ -54,7 +71,7 @@ export function mapProduct(raw: WCProduct, categoriesById: Map<number, Category>
     onSale: raw.on_sale && regularPrice !== null && price !== null && price < regularPrice,
     currency: "INR",
     shortDescription: stripHtml(raw.short_description || ""),
-    description: stripHtml(raw.description || ""),
+    description: stripHtmlKeepParagraphs(raw.description || ""),
     images,
     categories: raw.categories
       .map((c) => categoriesById.get(c.id))

@@ -4,6 +4,7 @@ import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/serv
 import { pageMetadata } from "@/lib/seo/metadata";
 import { productSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site-config";
+import { splitProductName } from "@/lib/product-name";
 import type { Product } from "@/lib/types";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PriceTag } from "@/components/shared/PriceTag";
@@ -39,11 +40,12 @@ export async function generateMetadata({
   const product = await getProductBySlug(slug);
   if (!product) return {};
 
+  const { baseName, size } = splitProductName(product.name);
   return pageMetadata({
-    title: `${product.name} | ${siteConfig.brandName} ${siteConfig.locality}`,
+    title: `${baseName} in ${siteConfig.locality}${size ? `, ${size}` : ""} | ${siteConfig.brandName} Tuty`,
     description:
       product.shortDescription ||
-      `${product.name} from ${siteConfig.brandName}, ${siteConfig.shopBranch}, Thoothukudi — freshly baked and available to order online.`,
+      `${baseName} from ${siteConfig.brandName}, ${siteConfig.shopBranch}, ${siteConfig.locality} (Tuticorin) — freshly baked since ${siteConfig.since} and delivered across India.`,
     path: `/product/${product.slug}`,
     image: product.images[0]?.url,
   });
@@ -56,6 +58,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const related = await getRelatedProducts(product);
   const category = product.categories[0];
+  const { baseName } = splitProductName(product.name);
   const productFacts = PRODUCT_FACT_LABELS.flatMap((label) => {
     const value = findAttribute(product, label)?.trim();
     return value ? [{ label, value }] : [];
@@ -78,6 +81,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           <div>
             <h1 className="font-display text-3xl font-semibold text-[color:var(--text-primary)] sm:text-4xl">{product.name}</h1>
+            <p className="mt-1.5 text-sm text-[color:var(--text-muted)]">
+              Baked at {siteConfig.brandName}, {siteConfig.shopBranch} · {siteConfig.locality} ({siteConfig.localityAlias})
+            </p>
             {product.weightLabel && (
               <p className="label-tracked mt-2 text-[color:var(--text-muted)]">{product.weightLabel}</p>
             )}
@@ -122,8 +128,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         {product.description && (
           <div className="mt-14 max-w-3xl border-t border-[color:var(--glass-border)] pt-10">
-            <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">About {product.name}</h2>
-            <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">{product.description}</p>
+            <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">
+              About Our {baseName} — Baked in {siteConfig.locality}
+            </h2>
+            {product.description.split(/\n{2,}/).map((para, i) => (
+              <p key={i} className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+                {para}
+              </p>
+            ))}
           </div>
         )}
 

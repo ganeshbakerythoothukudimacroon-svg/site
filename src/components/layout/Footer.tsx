@@ -5,9 +5,16 @@ import { formatAddress, siteConfig } from "@/lib/site-config";
 const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: "Shop",
+    // Labels match how people search ("tea rusk in thoothukudi") — these
+    // links appear on every page, so they carry real weight with Google.
     links: [
       { href: "/shop", label: "All Products" },
-      { href: "/bakery-in-thoothukudi", label: "Categories" },
+      { href: "/thoothukudi-macroons", label: "Thoothukudi Macroons" },
+      { href: "/product/nutbar-1kg", label: "Nutbar in Thoothukudi" },
+      { href: "/product/tea-rusk-1kg", label: "Tea Rusk in Thoothukudi" },
+      { href: "/product/butter-biscuit-1kg", label: "Butter Biscuits in Thoothukudi" },
+      { href: "/product/ghee-biscuit-1kg", label: "Ghee Biscuits in Thoothukudi" },
+      { href: "/bakery-in-thoothukudi", label: "Bakery in Thoothukudi" },
       { href: "/gifting", label: "Gift Boxes" },
     ],
   },

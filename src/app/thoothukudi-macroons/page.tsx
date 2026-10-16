@@ -13,16 +13,18 @@ import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Thoothukudi Macroons | Buy Macroons Online | Ganesh Bakery",
+  title: "Thoothukudi Macroons (Tuticorin Macaroons) | Buy Online | Ganesh Bakery",
   description:
-    "Thoothukudi macroons (from Tuticorin) — baked by Ganesh Bakery, Shop No. 532 since 1964. Order online and have them shipped to you.",
+    "Buy authentic Thoothukudi macroons — the famous Tuticorin macaroons of cashew, egg white and sugar — from Ganesh Bakery, Shop No. 532, Thoothukudi, baking since 1964. Delivered across India.",
   path: "/thoothukudi-macroons",
 });
 
 const relevantFaq = faqItems.filter((item) =>
   [
     "What are Thoothukudi macroons?",
+    "Are Thoothukudi macroons the same as macaroons?",
     "Can I buy macroons online?",
+    "Do you deliver Tuticorin macaroons outside Tamil Nadu?",
     "What sizes are available?",
     "How should macroons and biscuits be stored?",
     "What is the shelf life?",
@@ -44,8 +46,8 @@ export default async function ThoothukudiMacroonsPage() {
           Thoothukudi Macroons
         </h1>
         <p className="mt-4 text-lg text-[color:var(--text-secondary)] text-pretty">
-          A bakery specialty of Thoothukudi — also known as Tuticorin — baked by {siteConfig.brandName},{" "}
-          {siteConfig.shopBranch} since {siteConfig.since}.
+          The famous Tuticorin macaroon — the sweet Thoothukudi (Tuty) is known for — baked by{" "}
+          {siteConfig.brandName}, {siteConfig.shopBranch} since {siteConfig.since}.
         </p>
 
         {image && (
@@ -57,9 +59,20 @@ export default async function ThoothukudiMacroonsPage() {
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">What Are Thoothukudi Macroons?</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-            Thoothukudi macroons are a baked confection
-            associated with Thoothukudi (Tuticorin) on the Tamil Nadu coast. They&apos;re distinct from French
-            macarons, and have become closely tied to the city&apos;s identity as a bakery town.
+            Thoothukudi macroons — also spelt macaroons, and often called Tuticorin or Tuty macaroons — are the
+            signature sweet of this port town on the Tamil Nadu coast. Around the world a macaroon is usually flat
+            and made with almond or coconut; only in Thoothukudi is it filled with cashew and shaped into a cone
+            with a round base and a pointed peak. They are quite different from French macarons.
+          </p>
+          <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+            The sweet is a legacy of the town&apos;s centuries as a trading port. Our founder, Shri K.
+            Dharmalingam, told{" "}
+            <Link href="/about#press" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
+              The Hindu
+            </Link>{" "}
+            that the sweet likely goes back to the Dutch and Portuguese era, when local men working for the ships
+            anchored off Thoothukudi improvised on the flat almond macaroon — the beginning of the cashew cone the
+            city is famous for today.
           </p>
         </section>
 
@@ -92,14 +105,22 @@ export default async function ThoothukudiMacroonsPage() {
               </Link>
             </div>
           ) : (
-            <p className="mt-3 text-[color:var(--text-muted)]">[CLIENT TO PROVIDE: current macroons availability]</p>
+            <p className="mt-3 text-[color:var(--text-secondary)]">
+              Macroons are available in our{" "}
+              <Link href="/shop" className="font-medium text-[color:var(--gold-400)] hover:text-[color:var(--gold-300)]">
+                shop
+              </Link>
+              , or visit us at {siteConfig.shopBranch}.
+            </p>
           )}
         </section>
 
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">How We Package Them</h2>
-          <p className="glass-subtle mt-3 rounded-2xl p-4 text-sm text-[color:var(--text-muted)]">
-            [CLIENT TO PROVIDE: packaging details]
+          <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+            Macroons are delicate and absorb moisture quickly, so each order is packed in food-grade, sealed
+            packaging with a protective outer layer for transit, and our macroons are individually and securely
+            packed to reduce breakage on the way to you.
           </p>
         </section>
 
