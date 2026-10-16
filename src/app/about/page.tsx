@@ -1,5 +1,6 @@
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { HeritageTimeline } from "@/components/shared/HeritageTimeline";
+import { ShopBranch } from "@/components/shared/ShopBranch";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site-config";
 import type { Metadata } from "next";
@@ -22,7 +23,7 @@ export default function AboutPage() {
           About {siteConfig.brandName}
         </h1>
         <p className="mt-4 text-lg text-[color:var(--text-secondary)] text-pretty">
-          {siteConfig.brandName}, {siteConfig.shopBranch} — {siteConfig.locality} (Tuticorin), Tamil Nadu.
+          {siteConfig.brandName}, <ShopBranch /> — {siteConfig.locality} (Tuticorin), Tamil Nadu.
         </p>
 
         <section className="mt-10">
@@ -90,12 +91,23 @@ export default function AboutPage() {
           </p>
         </section>
 
-        <section id="timeline" className="mt-10 scroll-mt-24">
-          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Journey</h2>
+        <section id="timeline" className="relative mt-20 scroll-mt-24">
+          <div
+            className="pointer-events-none absolute inset-x-0 -top-10 h-[600px]"
+            style={{ background: "radial-gradient(closest-side, var(--purple-glow), transparent)" }}
+            aria-hidden="true"
+          />
+          <div className="cine-reveal relative text-center">
+            <p className="label-tracked text-[color:var(--gold-400)]">Est. {siteConfig.since} · {siteConfig.locality}</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold text-[color:var(--text-primary)] sm:text-5xl text-balance">
+              Our <span className="italic text-gradient-gold">Journey</span>
+            </h2>
+            <div className="mx-auto mt-5 h-px w-24 bg-gradient-to-r from-transparent via-[color:var(--gold-400)] to-transparent" />
+          </div>
           <HeritageTimeline />
         </section>
 
-        <section id="press" className="mt-10 scroll-mt-24">
+        <section id="press" className="cine-reveal mt-10 scroll-mt-24">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Featured in The Hindu</h2>
           <figure className="glass-subtle mt-4 rounded-2xl p-5">
             <blockquote className="font-display text-lg text-[color:var(--text-primary)] text-pretty">
@@ -131,7 +143,7 @@ export default function AboutPage() {
 
         <section id="mission-vision" className="mt-10 scroll-mt-24">
           <div className="grid gap-5 sm:grid-cols-2">
-            <div className="glass-subtle rounded-2xl p-5">
+            <div className="card-cinematic cine-sheen cine-reveal rounded-2xl p-5">
               <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Mission</h2>
               <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
                 To make every customer happy with every order. We bake with honest ingredients and the methods our
@@ -140,7 +152,7 @@ export default function AboutPage() {
                 sale.
               </p>
             </div>
-            <div className="glass-subtle rounded-2xl p-5">
+            <div className="card-cinematic cine-sheen cine-reveal rounded-2xl p-5">
               <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Vision</h2>
               <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
                 To be the bakery {siteConfig.locality} is proud of, and the name families everywhere think of

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ShopBranch } from "@/components/shared/ShopBranch";
 import Link from "next/link";
 import { getHeritageYears, siteConfig } from "@/lib/site-config";
 
@@ -33,9 +34,9 @@ export function Hero({
         instead of duplicating the whole block per breakpoint.
       */}
       <div
-        className="relative mx-auto grid max-w-7xl [grid-template-areas:'stage'] px-4 py-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-28 lg:[grid-template-areas:'content_image']"
+        className="relative mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] [grid-template-areas:'stage'] px-4 py-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-28 lg:[grid-template-areas:'content_image']"
       >
-        <div className="relative aspect-[4/5] w-full [grid-area:stage] sm:aspect-[16/11] lg:aspect-4/5 lg:max-w-sm lg:[grid-area:image]">
+        <div className="relative aspect-[4/5] w-full self-stretch [grid-area:stage] lg:self-auto sm:aspect-[16/11] lg:aspect-4/5 lg:max-w-sm lg:[grid-area:image]">
         <div className="glass-premium absolute inset-0 overflow-hidden rounded-[2rem] lg:rounded-[2.5rem]">
           {imageUrl ? (
             <Image
@@ -100,7 +101,7 @@ export function Hero({
           </h1>
           <p className="max-w-lg text-base text-[color:var(--text-primary)] text-pretty sm:text-lg lg:text-[color:var(--text-secondary)]">
             Discover authentic Thoothukudi Macroons and traditional bakery specialities from{" "}
-            {siteConfig.brandName}, {siteConfig.shopBranch}, {siteConfig.locality} — freshly prepared with the
+            {siteConfig.brandName}, <ShopBranch />, {siteConfig.locality} — freshly prepared with the
             taste and tradition we&apos;ve preserved since {siteConfig.since}.
           </p>
           <div className="flex flex-wrap gap-3 sm:gap-4">

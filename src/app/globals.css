@@ -217,6 +217,146 @@ body {
   display: none;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   Cinematic scroll reveal — content drifts up out of a soft blur
+   as it enters the viewport. Pure CSS (scroll-driven animations);
+   browsers without support simply show the content, no JS needed.
+   ============================================================ */
+@keyframes cine-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    /* `none`, not blur(0): any filter value would keep the card's
+       backdrop-filter from seeing the page behind it. */
+    filter: none;
+  }
+}
+@keyframes cine-watermark {
+  from {
+    transform: translateY(40%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-10%);
+    opacity: 1;
+  }
+}
+@keyframes cine-line-fill {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes cine-sheen {
+  from {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  to {
+    transform: translateX(400%) skewX(-20deg);
+  }
+}
+@keyframes cine-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(232, 169, 74, 0.55), 0 0 18px 4px rgba(232, 169, 74, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(232, 169, 74, 0), 0 0 28px 8px rgba(232, 169, 74, 0.6);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .cine-reveal {
+    animation: cine-reveal linear both;
+    animation-timeline: view();
+    /* Finish while the element is still entering, so on short phone
+       screens a card is sharp by the time it's being read. */
+    animation-range: entry 0% entry 90%;
+  }
+  .cine-watermark {
+    animation: cine-watermark linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+  .cine-line-fill {
+    transform-origin: top;
+    animation: cine-line-fill linear both;
+    animation-timeline: view();
+    animation-range: entry 20% exit 60%;
+  }
+  .cine-sheen::after {
+    animation: cine-sheen linear both;
+    animation-timeline: view();
+    animation-range: entry 40% cover 50%;
+  }
+}
+
+/* A single band of light that sweeps across a card as it lands. */
+.cine-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.cine-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(240, 203, 135, 0.14), transparent);
+  /* Parked fully off the right edge (skew included) when not animating. */
+  transform: translateX(400%) skewX(-20deg);
+}
+
+.cine-pulse {
+  animation: cine-pulse 3.2s ease-in-out infinite;
+}
+
+/* Premium card: deep glass, gold hairline along the top edge, and a warm
+   glow that blooms on hover. */
+.card-cinematic {
+  background: linear-gradient(160deg, rgba(74, 3, 40, 0.5), rgba(18, 3, 12, 0.9));
+  border: 1px solid var(--glass-border-strong);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-purple), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+}
+.card-cinematic::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
+  opacity: 0.7;
+}
+.card-cinematic:hover {
+  transform: translateY(-4px);
+  border-color: rgba(232, 169, 74, 0.45);
+  box-shadow: var(--shadow-purple), 0 18px 60px -12px rgba(232, 169, 74, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-reveal,
+  .cine-watermark,
+  .cine-line-fill,
+  .cine-sheen::after,
+  .cine-pulse {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
