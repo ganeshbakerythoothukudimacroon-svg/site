@@ -35,7 +35,7 @@ export function pageMetadata({
   noindex?: boolean;
 }): Metadata {
   const url = absoluteUrl(path);
-  const ogImage = image ?? absoluteUrl("/brand/logo-horizontal.png");
+  const ogImage = image ?? absoluteUrl("/brand/og-image.jpg");
 
   return {
     title: { absolute: title },

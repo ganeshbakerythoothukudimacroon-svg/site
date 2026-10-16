@@ -73,7 +73,7 @@ export function Header() {
             <Menu className="h-5 w-5" />
           </button>
 
-          <Link href="/" className="flex min-w-0 items-center gap-2 lg:mr-4 lg:shrink-0" aria-label="Ganesh Bakery home">
+          <Link href="/" className="logo-hover flex min-w-0 items-center gap-2 lg:mr-4 lg:shrink-0" aria-label="Ganesh Bakery home">
             <Image
               src="/brand/emblem.png"
               alt=""
@@ -94,16 +94,12 @@ export function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`label-tracked relative py-2 transition-colors ${
-                    active ? "text-[color:var(--gold-400)]" : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]"
+                  aria-current={active ? "page" : undefined}
+                  className={`nav-link label-tracked py-2 ${
+                    active ? "text-[color:var(--gold-400)]" : "text-[color:var(--text-secondary)]"
                   }`}
                 >
                   {link.label}
-                  <span
-                    className={`absolute -bottom-0.5 left-0 h-px w-full bg-gradient-to-r from-[color:var(--gold-500)] to-transparent transition-opacity ${
-                      active ? "opacity-100" : "opacity-0"
-                    }`}
-                  />
                 </Link>
               );
             })}
@@ -114,14 +110,14 @@ export function Header() {
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Search products"
-              className="glass-button flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)]"
+              className="glass-button icon-glow flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)]"
             >
               <Search className="h-[18px] w-[18px]" />
             </button>
 
             <Link
               href="/track-order"
-              className="label-tracked hidden h-10 items-center rounded-full px-3 text-[color:var(--text-secondary)] hover:text-[color:var(--gold-400)] md:flex"
+              className="nav-link label-tracked hidden h-10 items-center px-3 text-[color:var(--text-secondary)] md:flex"
             >
               Track Order
             </Link>
@@ -130,7 +126,7 @@ export function Header() {
               href="/account"
               aria-label="Your account"
               prefetch={false}
-              className="glass-button hidden h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)] md:flex"
+              className="glass-button icon-glow hidden h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)] md:flex"
             >
               <UserCircle2 className="h-[18px] w-[18px]" />
             </Link>
@@ -139,7 +135,7 @@ export function Header() {
               type="button"
               onClick={openCart}
               aria-label={`Open cart, ${itemsCount} item${itemsCount === 1 ? "" : "s"}`}
-              className="glass-button relative flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)]"
+              className="glass-button icon-glow relative flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--text-secondary)]"
             >
               <ShoppingBag className="h-[18px] w-[18px]" />
               {itemsCount > 0 && (
@@ -151,7 +147,7 @@ export function Header() {
 
             <Link
               href="/shop"
-              className="glow-gold-hover hidden items-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-2.5 text-sm font-semibold text-[color:var(--bg-void)] lg:inline-flex"
+              className="btn-shine hidden items-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-2.5 text-sm font-semibold text-[color:var(--bg-void)] lg:inline-flex"
             >
               Shop Now
             </Link>

@@ -222,6 +222,87 @@ html {
 }
 
 /* ============================================================
+   Header hover effects
+   ============================================================ */
+/* Nav link: text warms to gold with a soft glow, and a gold underline
+   draws outward from the centre. */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+  box-shadow: 0 0 8px var(--gold-glow);
+  transform: scaleX(0);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover {
+  color: var(--gold-300);
+  text-shadow: 0 0 14px var(--gold-glow);
+}
+.nav-link:hover::after,
+.nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* Round icon buttons: gold rim, warm glow, slight lift. */
+.icon-glow {
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.icon-glow:hover {
+  color: var(--gold-300);
+  border-color: rgba(232, 169, 74, 0.55);
+  box-shadow: 0 0 0 1px rgba(232, 169, 74, 0.15), 0 6px 22px -6px var(--gold-glow);
+  transform: translateY(-1px);
+}
+
+/* Primary button: lifts, glows, and a band of light sweeps across. */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: translateX(-160%) skewX(-20deg);
+  pointer-events: none;
+}
+.btn-shine:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -8px rgba(232, 169, 74, 0.7);
+}
+.btn-shine:hover::after {
+  transform: translateX(320%) skewX(-20deg);
+  transition: transform 0.75s ease;
+}
+
+/* Logo: emblem gently turns and glows; wordmark brightens. */
+.logo-hover img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+}
+.logo-hover:hover img {
+  transform: rotate(-8deg) scale(1.06);
+  filter: drop-shadow(0 0 10px var(--gold-glow));
+}
+.logo-hover span {
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+.logo-hover:hover span {
+  color: var(--gold-300);
+  text-shadow: 0 0 16px var(--gold-glow);
+}
+
+/* ============================================================
    Cinematic scroll reveal — content drifts up out of a soft blur
    as it enters the viewport. Pure CSS (scroll-driven animations);
    browsers without support simply show the content, no JS needed.

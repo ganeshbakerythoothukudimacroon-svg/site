@@ -23,7 +23,7 @@ export function organizationSchema() {
     name: siteConfig.brandName,
     legalName: siteConfig.legalName,
     url: siteConfig.siteUrl,
-    logo: absoluteUrl("/brand/logo-horizontal.png"),
+    logo: absoluteUrl("/brand/emblem.png"),
     ...(sameAs.length > 0 && { sameAs }),
   };
 }
@@ -55,8 +55,8 @@ export function localBusinessSchema(products: Product[] = []) {
     name: `${siteConfig.brandName} — ${siteConfig.shopBranch}`,
     legalName: siteConfig.legalName,
     url: siteConfig.siteUrl,
-    logo: absoluteUrl("/brand/logo-horizontal.png"),
-    image: absoluteUrl("/brand/logo-horizontal.png"),
+    logo: absoluteUrl("/brand/emblem.png"),
+    image: absoluteUrl("/brand/og-image.jpg"),
     parentOrganization: { "@id": ORG_ID() },
     address: {
       "@type": "PostalAddress",

@@ -40,7 +40,7 @@ export async function generateMetadata({
   if (!product) return {};
 
   return pageMetadata({
-    title: `${product.name} | ${siteConfig.brandName}`,
+    title: `${product.name} | ${siteConfig.brandName} ${siteConfig.locality}`,
     description:
       product.shortDescription ||
       `${product.name} from ${siteConfig.brandName}, ${siteConfig.shopBranch}, Thoothukudi — freshly baked and available to order online.`,

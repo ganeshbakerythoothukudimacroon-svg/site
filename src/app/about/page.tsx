@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Ganesh Bakery | Shop 532, Thoothukudi",
+  title: "About Ganesh Bakery Thoothukudi | Shop No. 532, Since 1964",
   description:
     "Ganesh Bakery, Shop No. 532, Thoothukudi (Tuticorin) — a family bakery established in 1964, making biscuits, rusk, nutbar and macroons.",
   path: "/about",

@@ -12,9 +12,9 @@ import { localBusinessSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ganesh Bakery | Thoothukudi Macroons & Traditional Bakery",
+  title: "Ganesh Bakery Thoothukudi | Home of Thoothukudi Macroons Since 1964",
   description:
-    "Ganesh Bakery, Thoothukudi — home of the Thoothukudi Macroons. Shop authentic macroons, butter biscuits, ghee biscuits, tea rusk and other traditional bakery specialities from Shop No. 532, freshly prepared since 1964.",
+    "Ganesh Bakery Thoothukudi, Shop No. 532, V.E. Road — home of the Thoothukudi Macroons since 1964. Order macroons, butter biscuits, ghee biscuits, tea rusk and nutbar online, delivered across India.",
   path: "/",
 });
 

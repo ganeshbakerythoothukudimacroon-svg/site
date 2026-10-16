@@ -1,7 +1,7 @@
 export const siteConfig = {
-  // TODO(client): swap in the real production domain once available —
-  // every canonical URL, sitemap entry and schema @id is derived from this.
-  siteUrl: "https://www.ganeshbakery532.example",
+  // Production domain — every canonical URL, sitemap entry and schema @id
+  // is derived from this, so it must match the domain Vercel serves.
+  siteUrl: "https://www.ganeshbakerytuty.com",
 
   brandName: "Ganesh Bakery",
   shopBranch: "Shop No. 532",

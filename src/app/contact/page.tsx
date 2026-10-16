@@ -13,7 +13,7 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact Ganesh Bakery Shop 532 | Thoothukudi",
+  title: "Contact Ganesh Bakery Thoothukudi | Shop No. 532, V.E. Road",
   description:
     "Get in touch with Ganesh Bakery, Shop No. 532, Thoothukudi (Tuticorin) — address, phone, WhatsApp, email and directions.",
   path: "/contact",
