@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Gift Boxes & Festival Gifting | Ganesh Bakery Shop 532",
+  title: "Gift Boxes & Festival Gifting | Ganesh Bakery Thoothukudi",
   description:
     "Festival, family and corporate gift boxes from Ganesh Bakery, Shop No. 532, Thoothukudi — share the taste of Tuticorin with the people you care about.",
   path: "/gifting",

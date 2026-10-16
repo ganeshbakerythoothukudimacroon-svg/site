@@ -41,7 +41,7 @@ export function ProductGallery({ images, productName }: { images: ProductImage[]
                 i === active ? "border-[color:var(--gold-500)]" : "border-transparent"
               }`}
             >
-              <Image src={img.url} alt="" fill sizes="10vw" className="object-cover" />
+              <Image src={img.url} alt={img.alt} fill sizes="10vw" className="object-cover" />
             </button>
           ))}
         </div>

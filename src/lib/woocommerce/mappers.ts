@@ -2,6 +2,7 @@ import type { Category, Customer, Order, Product, ProductImage } from "@/lib/typ
 import type { WCCategory, WCImage, WCProduct } from "./raw-types";
 import type { WCOrder } from "./order-raw-types";
 import type { WCCustomer } from "./customer-raw-types";
+import { splitProductName } from "@/lib/product-name";
 
 function toNumberOrNull(value: string): number | null {
   if (value === "" || value === undefined || value === null) return null;
@@ -57,9 +58,16 @@ export function mapProduct(raw: WCProduct, categoriesById: Map<number, Category>
   // De-duplicate images (this catalog has a couple of products where the
   // same file is listed twice) and drop ones without a usable URL.
   const seen = new Set<string>();
+  // Images without alt text in WordPress get a descriptive one, so every
+  // product photo is findable in Google Images ("tea rusk thoothukudi").
+  const { baseName } = splitProductName(raw.name);
   const images = raw.images
     .filter((img) => img.src && !seen.has(img.src) && seen.add(img.src))
-    .map(mapImage);
+    .map(mapImage)
+    .map((img, i) => ({
+      ...img,
+      alt: img.alt || `${baseName} from Ganesh Bakery, Shop No. 532, Thoothukudi${i > 0 ? ` (photo ${i + 1})` : ""}`,
+    }));
 
   return {
     id: raw.id,

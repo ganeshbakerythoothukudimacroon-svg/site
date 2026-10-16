@@ -76,7 +76,7 @@ export function Header() {
           <Link href="/" className="logo-hover flex min-w-0 items-center gap-2 lg:mr-4 lg:shrink-0" aria-label="Ganesh Bakery home">
             <Image
               src="/brand/emblem.png"
-              alt=""
+              alt="Ganesh Bakery Thoothukudi logo"
               width={128}
               height={128}
               priority

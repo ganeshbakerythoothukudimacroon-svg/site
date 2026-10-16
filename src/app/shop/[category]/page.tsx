@@ -21,7 +21,7 @@ export async function generateMetadata({
   if (!category) return {};
 
   return pageMetadata({
-    title: `${category.name} | Ganesh Bakery Thoothukudi`,
+    title: `${category.name} in Thoothukudi | Ganesh Bakery Thoothukudi`,
     description:
       category.description ||
       `Shop ${category.name} from Ganesh Bakery, Shop No. 532, Thoothukudi (Tuticorin) — freshly baked and available to order online.`,

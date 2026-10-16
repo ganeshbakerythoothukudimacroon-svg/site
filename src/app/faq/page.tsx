@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Frequently Asked Questions | Ganesh Bakery Shop 532",
+  title: "FAQ | Ganesh Bakery Thoothukudi, Shop No. 532",
   description:
     "Answers to common questions about Ganesh Bakery, Shop No. 532, Thoothukudi — ordering, delivery, bulk orders, gifting and order tracking.",
   path: "/faq",

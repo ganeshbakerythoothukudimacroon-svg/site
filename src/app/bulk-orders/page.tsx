@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Bulk & Corporate Orders | Ganesh Bakery Shop 532",
+  title: "Bulk & Corporate Orders | Ganesh Bakery Thoothukudi",
   description:
     "Planning a wedding, corporate gifting, festival order or large family order? Ganesh Bakery, Shop No. 532, Thoothukudi can help — enquire directly.",
   path: "/bulk-orders",

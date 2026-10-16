@@ -13,7 +13,7 @@ import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Thoothukudi Macroons (Tuticorin Macaroons) | Buy Online | Ganesh Bakery",
+  title: "Thoothukudi Macroons (Tuticorin Macaroons) | Ganesh Bakery",
   description:
     "Buy authentic Thoothukudi macroons — the famous Tuticorin macaroons of cashew, egg white and sugar — from Ganesh Bakery, Shop No. 532, Thoothukudi, baking since 1964. Delivered across India.",
   path: "/thoothukudi-macroons",

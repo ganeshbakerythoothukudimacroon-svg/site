@@ -12,7 +12,7 @@ import { localBusinessSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ganesh Bakery Thoothukudi | Home of Thoothukudi Macroons Since 1964",
+  title: "Ganesh Bakery Thoothukudi | Thoothukudi Macroons Since 1964",
   description:
     "Ganesh Bakery Thoothukudi, Shop No. 532, V.E. Road — home of the Thoothukudi Macroons since 1964. Order macroons, butter biscuits, ghee biscuits, tea rusk and nutbar online, delivered across India.",
   path: "/",
