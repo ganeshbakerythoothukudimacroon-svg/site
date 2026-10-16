@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { MessageCircle, PackageCheck, ShoppingBag, Store, Truck } from "lucide-react";
 import { getAllProducts, getProductBySlug, getRelatedProducts } from "@/lib/services/product-service";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { productSchema } from "@/lib/seo/schema";
@@ -135,15 +136,61 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
 
         {product.description && (
-          <div className="mt-14 max-w-3xl border-t border-[color:var(--glass-border)] pt-10">
-            <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">
-              About Our {baseName} — Baked in {siteConfig.locality}
-            </h2>
-            {product.description.split(/\n{2,}/).map((para, i) => (
-              <p key={i} className="mt-3 text-[color:var(--text-secondary)] text-pretty">
-                {para}
-              </p>
-            ))}
+          <div className="mt-14 grid gap-10 border-t border-[color:var(--glass-border)] pt-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+            <div className="max-w-3xl">
+              <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">
+                About Our {baseName} — Baked in {siteConfig.locality}
+              </h2>
+              {product.description.split(/\n{2,}/).map((para, i) => (
+                <p key={i} className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+                  {para}
+                </p>
+              ))}
+            </div>
+
+            <aside className="lg:sticky lg:top-28 lg:self-start">
+              <div className="glass-premium rounded-[var(--radius-card)] p-6">
+                <h3 className="label-tracked text-[color:var(--gold-400)]">Order with Confidence</h3>
+                <ul className="mt-4 space-y-4 text-sm">
+                  {[
+                    { icon: Truck, title: "Free delivery", text: "On every order, anywhere we deliver in India." },
+                    {
+                      icon: ShoppingBag,
+                      title: `Minimum order ₹${siteConfig.minOrderValue.toLocaleString("en-IN")}`,
+                      text: "Mix any products and sizes to reach it.",
+                    },
+                    {
+                      icon: PackageCheck,
+                      title: "Packed fresh & sealed",
+                      text: "Food-grade, sealed packaging with a protective outer layer.",
+                    },
+                    {
+                      icon: Store,
+                      title: `${siteConfig.shopBranch}, since ${siteConfig.since}`,
+                      text: "V.E. Road, opposite V.O.C. Market, Thoothukudi.",
+                    },
+                  ].map(({ icon: Icon, title, text }) => (
+                    <li key={title} className="flex gap-3">
+                      <span className="glass-subtle flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[color:var(--gold-400)]">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span>
+                        <span className="block font-semibold text-[color:var(--text-primary)]">{title}</span>
+                        <span className="text-[color:var(--text-secondary)]">{text}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(`Hi! I have a question about ${baseName}.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-button icon-glow mt-6 flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-[color:var(--text-primary)]"
+                >
+                  <MessageCircle className="h-4 w-4 text-[color:var(--gold-400)]" /> Ask us on WhatsApp
+                </a>
+              </div>
+            </aside>
           </div>
         )}
 
