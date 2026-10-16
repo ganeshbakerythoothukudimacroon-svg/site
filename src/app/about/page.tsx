@@ -123,6 +123,28 @@ export default function AboutPage() {
           </p>
         </section>
 
+        <section id="mission-vision" className="mt-10 scroll-mt-24">
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="glass-subtle rounded-2xl p-5">
+              <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Mission</h2>
+              <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+                To make every customer happy with every order. We bake with honest ingredients and the methods our
+                family has trusted since {siteConfig.since}, pack each order with care, and listen when something
+                isn&apos;t right — because a customer who comes back smiling matters more to us than any single
+                sale.
+              </p>
+            </div>
+            <div className="glass-subtle rounded-2xl p-5">
+              <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Vision</h2>
+              <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
+                To be the bakery {siteConfig.locality} is proud of, and the name families everywhere think of
+                first for the true taste of the Thoothukudi macroon — carrying our grandfather&apos;s standards of
+                quality, freshness and care to every home we deliver to, for generations to come.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Our Products &amp; Food Information</h2>
           <p className="mt-3 text-[color:var(--text-secondary)] text-pretty">
