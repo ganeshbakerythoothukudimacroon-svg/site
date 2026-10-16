@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCart } from "./CartContext";
+import { CartSuggestions } from "./CartSuggestions";
 
 const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
 
@@ -91,7 +92,8 @@ export function CartDrawer() {
           </div>
         ) : (
           <>
-            <ul className="flex-1 overflow-y-auto divide-y divide-[color:var(--glass-border)] px-5">
+            <div className="flex-1 overflow-y-auto px-5">
+            <ul className="divide-y divide-[color:var(--glass-border)]">
               {items.map((item) => (
                 <li key={item.key} className="flex gap-3 py-4">
                   <div className="glass-subtle relative h-20 w-20 shrink-0 overflow-hidden rounded-xl">
@@ -136,6 +138,12 @@ export function CartDrawer() {
                 </li>
               ))}
             </ul>
+            {!meetsMinOrder(subtotal) && (
+              <div className="border-t border-[color:var(--glass-border)]">
+                <CartSuggestions />
+              </div>
+            )}
+            </div>
 
             <div className="border-t border-[color:var(--glass-border)] px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5">
               <div className="mb-4 flex items-center justify-between text-base font-semibold">
@@ -154,9 +162,13 @@ export function CartDrawer() {
                   Proceed to Checkout
                 </Link>
               ) : (
-                <span aria-disabled="true" className="flex w-full cursor-not-allowed items-center justify-center rounded-full bg-[color:var(--glass-bg-3)] px-5 py-3 text-sm font-semibold text-[color:var(--text-muted)]">
-                  Proceed to Checkout
-                </span>
+                <Link
+                  href="/shop"
+                  onClick={closeCart}
+                  className="btn-shine flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)]"
+                >
+                  Continue Shopping
+                </Link>
               )}
               <Link
                 href="/cart"

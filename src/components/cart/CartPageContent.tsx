@@ -1,5 +1,6 @@
 "use client";
 
+import { CartSuggestions } from "@/components/cart/CartSuggestions";
 import { MinOrderNotice, meetsMinOrder } from "@/components/cart/MinOrderNotice";
 import Image from "next/image";
 import Link from "next/link";
@@ -84,9 +85,17 @@ export function CartPageContent() {
             Proceed to Checkout
           </Link>
         ) : (
-          <span aria-disabled="true" className="mt-5 flex w-full cursor-not-allowed items-center justify-center rounded-full bg-[color:var(--glass-bg-3)] px-5 py-3 text-sm font-semibold text-[color:var(--text-muted)]">
-            Proceed to Checkout
-          </span>
+          <>
+            <Link
+              href="/shop"
+              className="btn-shine mt-5 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[color:var(--gold-500)] to-[color:var(--gold-400)] px-5 py-3 text-sm font-semibold text-[color:var(--bg-void)]"
+            >
+              Continue Shopping
+            </Link>
+            <div className="mt-2 border-t border-[color:var(--glass-border)]">
+              <CartSuggestions />
+            </div>
+          </>
         )}
       </div>
     </div>
