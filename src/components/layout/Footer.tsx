@@ -111,9 +111,22 @@ export function Footer() {
           <p className="mt-1">GSTIN: {siteConfig.gstNumber}</p>
         </div>
 
-        <p className="mt-8 text-xs text-[color:var(--text-muted)]">
-          © {new Date().getFullYear()} {siteConfig.brandName}, {siteConfig.shopBranch}. All rights reserved.
-        </p>
+        <div className="mt-8 flex flex-col gap-2 text-xs text-[color:var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} {siteConfig.brandName}, {siteConfig.shopBranch}. All rights reserved.
+          </p>
+          <p>
+            Powered by{" "}
+            <a
+              href="https://www.queentouchtech.com"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-[color:var(--gold-400)] transition-colors hover:text-[color:var(--gold-300)]"
+            >
+              Queen Touch Technology
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
