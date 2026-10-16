@@ -5,6 +5,8 @@ import { pageMetadata } from "@/lib/seo/metadata";
 import { productSchema } from "@/lib/seo/schema";
 import { siteConfig } from "@/lib/site-config";
 import { splitProductName } from "@/lib/product-name";
+import { reviewsForProduct } from "@/lib/content/reviews";
+import { GoogleReviewCard } from "@/components/shared/GoogleReviewCard";
 import type { Product } from "@/lib/types";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PriceTag } from "@/components/shared/PriceTag";
@@ -59,6 +61,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const related = await getRelatedProducts(product);
   const category = product.categories[0];
   const { baseName } = splitProductName(product.name);
+  const googleReviewsHere = reviewsForProduct(product.slug);
   const productFacts = PRODUCT_FACT_LABELS.flatMap((label) => {
     const value = findAttribute(product, label)?.trim();
     return value ? [{ label, value }] : [];
@@ -144,16 +147,28 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
         )}
 
-        <div className="mt-10 max-w-3xl border-t border-[color:var(--glass-border)] pt-10">
-          <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">Customer Reviews</h2>
-          {product.reviewCount > 0 ? (
-            <div className="mt-3">
-              <RatingStars rating={product.averageRating} reviewCount={product.reviewCount} />
-            </div>
-          ) : (
-            <p className="mt-3 text-[color:var(--text-muted)]">No reviews yet for {product.name}.</p>
-          )}
-        </div>
+        {/* Only shown when there's something real to show — never an empty
+            "No reviews yet". Google reviews are quoted, not marked up as
+            this product's rating (see lib/content/reviews.ts). */}
+        {(product.reviewCount > 0 || googleReviewsHere.length > 0) && (
+          <div className="mt-10 border-t border-[color:var(--glass-border)] pt-10">
+            <h2 className="font-display text-2xl font-semibold text-[color:var(--text-primary)]">
+              What Customers Say About Our {baseName}
+            </h2>
+            {product.reviewCount > 0 && (
+              <div className="mt-3">
+                <RatingStars rating={product.averageRating} reviewCount={product.reviewCount} />
+              </div>
+            )}
+            {googleReviewsHere.length > 0 && (
+              <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {googleReviewsHere.map((review) => (
+                  <GoogleReviewCard key={review.name} review={review} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <RelatedProducts products={related} />
