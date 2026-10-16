@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Plus } from "lucide-react";
+import { Check, ChevronDown, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 import type { Product, ProductImage } from "@/lib/types";
@@ -19,6 +19,8 @@ export interface CartSuggestion {
 
 const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
 
+const PANEL_KEY = "ganeshbakery-suggestions-panel";
+
 // Fetched once per page load and shared by every cart view.
 let cache: Promise<CartSuggestion[]> | null = null;
 const loadSuggestions = () =>
@@ -35,6 +37,25 @@ export function CartSuggestions() {
   const { addItem } = useCart();
   const [products, setProducts] = useState<CartSuggestion[]>([]);
   const [justAdded, setJustAdded] = useState<string | null>(null);
+  // Remembered per browser, so a customer who hides the list keeps it hidden.
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    try {
+      // One-time read after mount (no localStorage during SSR).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (localStorage.getItem(PANEL_KEY) === "closed") setOpen(false);
+    } catch {}
+  }, []);
+
+  function toggle() {
+    setOpen((o) => {
+      try {
+        localStorage.setItem(PANEL_KEY, o ? "closed" : "open");
+      } catch {}
+      return !o;
+    });
+  }
 
   useEffect(() => {
     let active = true;
@@ -62,10 +83,22 @@ export function CartSuggestions() {
 
   return (
     <section className="py-4">
-      <h3 className="label-tracked text-[color:var(--gold-400)]">
-        Add more to reach ₹{siteConfig.minOrderValue.toLocaleString("en-IN")}
-      </h3>
-      <ul className="mt-3 space-y-3">
+      <button
+        type="button"
+        onClick={toggle}
+        aria-expanded={open}
+        aria-controls="cart-suggestions"
+        className="flex w-full items-center justify-between gap-2 text-left"
+      >
+        <h3 className="label-tracked text-[color:var(--gold-400)]">
+          Add more to reach ₹{siteConfig.minOrderValue.toLocaleString("en-IN")}
+        </h3>
+        <span className="flex items-center gap-1 text-xs text-[color:var(--text-muted)]">
+          {open ? "Hide" : "Show"}
+          <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+        </span>
+      </button>
+      <ul id="cart-suggestions" hidden={!open} className="mt-3 space-y-3">
         {products.map((product) => {
           const options = (
             product.variations.length > 0
